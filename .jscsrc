@@ -1,0 +1,14 @@
+{
+    "preset": "jquery",
+    "disallowTrailingWhitespace": "ignoreEmptyLines",
+    "requireSpacesInsideBrackets": false,
+    "requireSpacesInsideParentheses": false,
+    "maximumLineLength": 500,
+    "validateQuoteMarks": "'",
+    "requireCamelCaseOrUpperCaseIdentifiers": true,
+    "validateIndentation": 4,
+    "maxErrors": 1,
+    "requireCapitalizedComments": false,
+    "disallowMultipleLineStrings": false,
+    "requirePaddingNewLinesBeforeLineComments": false
+}

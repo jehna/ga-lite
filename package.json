@@ -1,0 +1,28 @@
+{
+  "name": "ga-lite",
+  "version": "1.0.0",
+  "description": "Small, cacheable subset of Google Analytics JS client",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "google",
+    "analytics",
+    "analytics.js",
+    "ga.js",
+    "pagespeed"
+  ],
+  "author": "Jesse Luoto",
+  "license": "MIT",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-clean": "^0.7.0",
+    "grunt-contrib-copy": "^0.8.2",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-jscs": "^2.3.0"
+  }
+}
