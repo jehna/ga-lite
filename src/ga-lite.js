@@ -1,7 +1,7 @@
 var galite = galite || {};
 var req = new XMLHttpRequest();
 var url = 'http://www.google-analytics.com/collect?' +
-          'uid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
+          'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
           '&v=1' +
           '&tid=' + galite.UA +
           '&t=pageview' +
