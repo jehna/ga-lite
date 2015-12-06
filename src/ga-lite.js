@@ -5,7 +5,7 @@
         window.galite = window.galite || {};
         var req = new XMLHttpRequest();
         var urlBase = (
-            'http://87.100.197.191:9002/collect?' +  //'http://www.google-analytics.com/collect?' +
+            'http://www.google-analytics.com/collect?' +
             'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
             '&v=1' +
             '&tid=' + galite.UA +
