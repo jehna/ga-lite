@@ -17,7 +17,7 @@ module.exports = function(grunt) {
                 options: {
                 },
                 files: {
-                    'dest/ga-lite.min.js': ['src/ga-lite.js']
+                    'dist/ga-lite.min.js': ['src/ga-lite.js']
                 }
             }
         },
@@ -26,14 +26,14 @@ module.exports = function(grunt) {
                 expand: true,
                 src: 'ga-lite.js',
                 cwd: 'src/',
-                dest: 'dest/'
+                dest: 'dist/'
             }
         },
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['build']
         },
-        clean: ['dest']
+        clean: ['dist']
     });
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
