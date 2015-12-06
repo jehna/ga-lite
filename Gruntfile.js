@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
-
+    var path = require('path');
+    
     grunt.initConfig({
         jshint: {
             files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
@@ -29,6 +30,20 @@ module.exports = function(grunt) {
                 dest: 'dist/'
             }
         },
+        express: {
+            fileServer: {
+                options: {
+                    port: 9001,
+                    bases: ['dist', 'test']
+                }
+            },
+            testServer: {
+                options: {
+                    server: path.resolve('./test/server'),
+                    port: 9002
+                }
+            }
+        },
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['build']
@@ -42,8 +57,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-jscs');
+    grunt.loadNpmTasks('grunt-express');
 
-    grunt.registerTask('build', ['clean', 'jshint', 'jscs', 'uglify', 'copy']);
+    grunt.registerTask('build', ['clean', 'jshint', 'jscs', 'uglify', 'copy', 'express']);
     grunt.registerTask('default', ['build', 'watch']);
 
 };
