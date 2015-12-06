@@ -1,4 +1,4 @@
-(function(window, localStorage, Math, navigator, screen, document) {
+(function(window, localStorage, navigator, screen, document, encodeURIComponent) {
     window.addEventListener('load', function() {
         var pageLoadedTimestamp = new Date().getTime();
         
@@ -11,12 +11,32 @@
             '&tid=' + galite.UA +
             '&dl=' + encodeURIComponent(location) +
             '&ul=en-us' +
-            '&de=UTF-8' +
-            '&dt=' + document.title +
-            '&sd=' + screen.colorDepth + '-bit' +
-            '&sr=' + screen.availHeight + 'x' + screen.availWidth +
-            '&vp=' + innerWidth + 'x' + innerHeight
+            '&de=UTF-8'
         );
+        
+        var getOptionalStr = function(values) {
+            var str = '';
+            for (var i in values) {
+                if (values[i] === undefined) {
+                    return false;
+                }
+                str += values[i];
+            }
+            return str;
+        };
+        
+        var optional = {
+            'dt': [document.title],
+            'sd': [screen.colorDepth, '-bit'],
+            'sr': [screen.availHeight, 'x', screen.availWidth],
+            'vp': [innerWidth, 'x', innerHeight]
+        };
+        for (var key in optional) {
+            var value = getOptionalStr(optional[key]);
+            if (value) {
+                urlBase += '&' + value;
+            }
+        }
 
         var sendTo = function(url) {
             if (navigator.sendBeacon) {
