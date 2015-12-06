@@ -69,7 +69,7 @@ This happens, because Google Analytics' official JS library is has a cache heade
 of the length of 2 hours. As PageSpeed Insights forces longer cache times, a
 custom GA library is practically the only way to achieve 100/100 points.
 
-This project also makes it possibe to:
+This project also makes it possible to:
 * Your site to load faster (as this is smaller lib than the official)
 * Be sure your site won't serve any code you can't check yourself
 
