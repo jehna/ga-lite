@@ -20,7 +20,7 @@
                 if (values[i] === undefined) {
                     return false;
                 }
-                str += values[i];
+                str += encodeURIComponent(values[i]);
             }
             return str;
         };
@@ -29,10 +29,11 @@
             'dt': [document.title],
             'sd': [screen.colorDepth, '-bit'],
             'sr': [screen.availHeight, 'x', screen.availWidth],
-            'vp': [innerWidth, 'x', innerHeight]
+            'vp': [innerWidth, 'x', innerHeight],
+            'dr': [document.referrer]
         };
         for (var key in optional) {
-            var value = getOptionalStr(optional[key]);
+            var value = key + '=' + getOptionalStr(optional[key]);
             if (value) {
                 urlBase += '&' + value;
             }
