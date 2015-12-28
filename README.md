@@ -5,15 +5,19 @@ This project is a non-official client for [Google Analytics API][ga-api].
 
 ## Install to your project
 
-TODO: Write this
+You can install ga-lite to your project by adding the following code to the ended
+of your HTML `<body>`:
 
-At least:
 ```html
+<script src="https://cdn.jsdelivr.net/ga-lite/latest/ga-lite.min.js" async></script>
 <script>
 var galite = galite || {};
 galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
 </script>
 ```
+
+This includes the most recent version of ga-lite to your site and initializes
+the script with your own UA code.
 
 ## Developing
 
@@ -73,9 +77,13 @@ This project also makes it possible to:
 * Your site to load faster (as this is smaller lib than the official)
 * Be sure your site won't serve any code you can't check yourself
 
+You can read more from the [blog post][blog-post] that's written about the
+library.
+
 ## Licensing
 
 The code in this project is licensed under MIT license.
 
 [ga-api]:https://developers.google.com/analytics/devguides/collection/protocol/v1/reference
 [issues]:https://github.com/jehna/ga-lite/issues
+[blog-post]:http://thejunkland.com/blog/fixing-last-point-on-google-pagespeed-insights.html
