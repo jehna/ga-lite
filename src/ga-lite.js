@@ -1,11 +1,11 @@
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
     window.addEventListener('load', function() {
         var pageLoadedTimestamp = new Date().getTime();
-        
+
         window.galite = window.galite || {};
         var req = new XMLHttpRequest();
         var urlBase = (
-            'http://www.google-analytics.com/collect?' +
+            'https://www.google-analytics.com/collect?' +
             'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
             '&v=1' +
             '&tid=' + galite.UA +
@@ -13,7 +13,7 @@
             '&ul=en-us' +
             '&de=UTF-8'
         );
-        
+
         var getOptionalStr = function(values) {
             var str = '';
             for (var i in values) {
@@ -24,7 +24,7 @@
             }
             return str;
         };
-        
+
         var optional = {
             'dt': [document.title],
             'sd': [screen.colorDepth, '-bit'],
@@ -62,10 +62,10 @@
                 );
             };
         };
-        
+
         // Deplay the page load event by 100ms
         setTimeout(eventBuilder('pageview'), 100);
-        
+
         /**
          * Note:
          * unload event does not fire on:
