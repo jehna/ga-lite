@@ -63,6 +63,10 @@ feature, please [open an issue][issues].
 If you'd like to contribute, please fork the repository and use a feature branch.
 Pull requests are warmly welcome.
 
+Note: Do not add the `dist/` folder files to your pull request, as the master
+branch should have the most up-to-date version's build files included. The
+new versions will be automatically fetched by `jsdelivr` to the CDN.
+
 ### Motivation
 
 This project was born, because it is currently impossible to use Google Analytics'
