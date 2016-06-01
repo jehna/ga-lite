@@ -1,4 +1,16 @@
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
+    
+    // Check for doNotTrack variable. If it's present, the user has decided to
+    // opt-out of the tracking, so we kill this tracking script immediately
+    var dnt = parseInt(
+        navigator.msDoNotTrack ||  // Internet Explorer 9 and 10 vendor prefix
+        window.doNotTrack ||  // IE 11 uses window.doNotTrack
+        navigator.doNotTrack  // W3C
+    );
+    if (dnt === 1) {
+        return;
+    }
+    
     window.addEventListener('load', function() {
         var pageLoadedTimestamp = new Date().getTime();
 
@@ -43,8 +55,15 @@
             if (navigator.sendBeacon) {
                 navigator.sendBeacon(url);
             } else {
-                req.open('GET', url, false);
-                req.send();
+                try {
+                    req.open('GET', url, false);
+                    req.send();
+                } catch (e) {
+                    // IE9 throws an error with cross-site XMLHttpRequest so
+                    // we fall back to simple image request
+                    var i = new Image();
+                    i.src = url;
+                }
             }
         };
 
@@ -54,9 +73,12 @@
                 paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
             }
             return function() {
+                var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
+                
                 sendTo(
                     urlBase +
                     paramsStr +
+                    anonymizeIp +
                     '&t=' + encodeURIComponent(event) +
                     '&z=' + new Date().getTime()
                 );
