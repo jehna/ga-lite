@@ -47,6 +47,34 @@ to `/dest` folder.
 At this point the plugin sends the GA `pageview` event to the Google Analytics
 server on page unload.
 
+## Configuration
+
+#### UA
+Type: `String`  
+Required: `true`
+
+The UA code from your [Google Analytics admin panel][ua-code-howto].
+
+Example:
+```javascript
+var galite = galite || {};
+galite.UA = 'UA-123456';
+```
+
+#### anonymizeIp
+Type: `Boolean`  
+Default: `false`
+
+Sets the [aip flag][aip-flag] that advices GA to
+[anonymize the IP address][anonymize-ip-address].
+
+Example:
+```javascript
+var galite = galite || {};
+galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
+galite.anonymizeIp = true;
+```
+
 ### Known bugs
 
 Since the beacon is sent on unload, this will most certainly mess up your GA's
@@ -91,3 +119,6 @@ The code in this project is licensed under MIT license.
 [ga-api]:https://developers.google.com/analytics/devguides/collection/protocol/v1/reference
 [issues]:https://github.com/jehna/ga-lite/issues
 [blog-post]:http://thejunkland.com/blog/fixing-last-point-on-google-pagespeed-insights.html
+[aip-flag]:https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#aip
+[anonymize-ip-address]:https://support.google.com/analytics/answer/2763052
+[ua-code-howto]:https://support.google.com/analytics/answer/1032385
