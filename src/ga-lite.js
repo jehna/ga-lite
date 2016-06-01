@@ -55,8 +55,15 @@
             if (navigator.sendBeacon) {
                 navigator.sendBeacon(url);
             } else {
-                req.open('GET', url, false);
-                req.send();
+                try {
+                    req.open('GET', url, false);
+                    req.send();
+                } catch (e) {
+                    // IE9 throws an error with cross-site XMLHttpRequest so
+                    // we fall back to simple image request
+                    var i = new Image();
+                    i.src = url;
+                }
             }
         };
 
