@@ -73,9 +73,12 @@
                 paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
             }
             return function() {
+                var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
+                
                 sendTo(
                     urlBase +
                     paramsStr +
+                    anonymizeIp +
                     '&t=' + encodeURIComponent(event) +
                     '&z=' + new Date().getTime()
                 );
