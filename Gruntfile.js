@@ -1,6 +1,9 @@
 module.exports = function(grunt) {
+
+    require('google-closure-compiler').grunt(grunt);
+
     var path = require('path');
-    
+
     grunt.initConfig({
         jshint: {
             files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
@@ -44,6 +47,17 @@ module.exports = function(grunt) {
                 }
             }
         },
+        'closure-compiler': {
+            dist: {
+                files: {
+                    'dist/ga-lite.min2.js': ['src/ga-lite.js']
+                },
+                options: {
+                    'compilation_level': 'SIMPLE_OPTIMIZATIONS',
+                    'language_in': 'ECMASCRIPT5_STRICT'
+                }
+            }
+        },
         watch: {
             files: ['<%= jshint.files %>'],
             tasks: ['build']
@@ -59,7 +73,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-jscs');
     grunt.loadNpmTasks('grunt-express');
 
-    grunt.registerTask('build', ['clean', 'jshint', 'jscs', 'uglify', 'copy', 'express']);
+    grunt.registerTask('build', ['clean', 'jshint', 'jscs', 'uglify', 'closure-compiler', 'copy', 'express']);
     grunt.registerTask('default', ['build', 'watch']);
 
 };
