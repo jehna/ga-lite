@@ -1,4 +1,12 @@
 language: node_js
 node_js:
-  - "node"
+- node
 cache: yarn
+deploy:
+  provider: npm
+  email: jesse.luoto@gmail.com
+  api_key:
+    secure: q0p/p6PAZn7bzUEK28/3YRPg96P9a4DzgkOK3PAV4uRIMBctGbCfsbu6VC5H+nOr0FmkfMKWJoSYYVydMTATIt6EaKfC/IEkZIqU9S2tTDQEwWrYCIOVJynp/cg8WcXoaPYkSmfwA2xwqo6iSyHdDI10g785ex7CD5/Tys1ZdEzPqMvvfPJRZ9oRR1H9IZVpsoDupeC/cgTcx4I+pHKH4J171N5WRvfUg/FZ2mZB1PU1PPt0UKxeZqoqzfYbe5z8uTszKzvO3ZJV94YohVjT3AkBnzt3HXIosJQwrEiWxj5BytAr8pzsMqmXqk5ymuKO4MvXzENvpAfhqsdoTrCl5LALPnh2OpVStI0DuhDWBxxzQ0/sDb7Mzr5ZfBfAUFrNfrEhEdTIaNnA/yW9sO32Wf+VWK9NOrT9PbuQYJCynKDRfVncuu4DbRrNmkGkhX6lr33CBkFqQ+sGXACJV39fVlCnPIMBcFEjF1wCmxu/yyTIpa67TD+IPnav7k7XmDi55ty4okLETBQ7PKvy+jylWnooHL+bwfbEnfCNrf5uYvKW4xADvj2ek5pF2sGzr0MfIkIGSAIFanMC9UOZZvd3jFwh9ZT4/Lfuya0LXBDVVNHBlB2+0McTbO2OkMlf56ERwFvLNN44MVYVytFrie0n5aede9cvWhc9ity3/s4lrLQ=
+  on:
+    tags: true
+    repo: jehna/ga-lite
