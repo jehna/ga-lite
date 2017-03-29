@@ -1,3 +1,5 @@
+<img src="https://travis-ci.org/jehna/ga-lite.svg?branch=master" alt="Build status">
+
 # ga-lite
 > Small, cacheable subset of Google Analytics JS client
 
