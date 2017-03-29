@@ -24,25 +24,40 @@ the script with your own UA code.
 ## Developing
 
 Install the project by running:
+
 ```shell
 npm install
 ```
 
+This installs the needed dependencies for this project.
+
 ### Building
 
-This plugin requires Grunt Command-line interface ```grunt-cli```
-
-If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out
-the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains
-how to install and use Grunt plugins. Once you're familiar with that process,
-you may compile this project with this command:
+You can compile this project with npm command:
 
 ```shell
-grunt
+npm run build
 ```
 
 Once the compilation has ended, Grunt has compiled the assets from `/src` folder
 to `/dest` folder.
+
+Do not add the `dest/` folder files manually to your pull request. The deploy is
+done automatically.
+
+### Deploying
+
+The deploy is done automatically by Travis. Creating a new release is done with
+the following npm command:
+
+```shell
+npm run deploy
+```
+
+This command will ask for new version number and it will create the build commit
+and tag for you automatically.
+
+You'll need to push the tag and commit to git manually.
 
 ## Features
 
