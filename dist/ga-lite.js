@@ -1,16 +1,17 @@
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
-    
+
     // Check for doNotTrack variable. If it's present, the user has decided to
     // opt-out of the tracking, so we kill this tracking script immediately
     var dnt = parseInt(
         navigator.msDoNotTrack ||  // Internet Explorer 9 and 10 vendor prefix
         window.doNotTrack ||  // IE 11 uses window.doNotTrack
-        navigator.doNotTrack  // W3C
+        navigator.doNotTrack,  // W3C
+        10
     );
     if (dnt === 1) {
         return;
     }
-    
+
     window.addEventListener('load', function() {
         var pageLoadedTimestamp = new Date().getTime();
 
@@ -21,7 +22,7 @@
             'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
             '&v=1' +
             '&tid=' + galite.UA +
-            '&dl=' + encodeURIComponent(location) +
+            '&dl=' + encodeURIComponent(document.location.href) +
             '&ul=en-us' +
             '&de=UTF-8'
         );
@@ -74,7 +75,7 @@
             }
             return function() {
                 var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
-                
+
                 sendTo(
                     urlBase +
                     paramsStr +
@@ -86,7 +87,7 @@
         };
 
         // Deplay the page load event by 100ms
-        setTimeout(eventBuilder('pageview'), 100);
+        setTimeout(eventBuilder('pageview', null), 100);
 
         /**
          * Note:
