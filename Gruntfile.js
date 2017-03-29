@@ -41,7 +41,7 @@ module.exports = function(grunt) {
         'closure-compiler': {
             dist: {
                 files: {
-                    'dist/ga-lite.min2.js': ['src/ga-lite.js']
+                    'dist/ga-lite.min.js': ['src/ga-lite.js']
                 },
                 options: {
                     'compilation_level': 'SIMPLE_OPTIMIZATIONS',
