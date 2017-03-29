@@ -62,7 +62,10 @@ You'll need to push the tag and commit to git manually.
 ## Features
 
 At this point the plugin sends the GA `pageview` event to the Google Analytics
-server on page unload.
+server on page load and other custom `unload` event on page unload.
+
+Unload event is used so the GA would track the average time spent on page
+better.
 
 ## Configuration
 
@@ -92,21 +95,13 @@ galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
 galite.anonymizeIp = true;
 ```
 
-### Known bugs
-
-Since the beacon is sent on unload, this will most certainly mess up your GA's
-page timing (avg. time on site etc).
-
-Also this library does not (yet) track page load times or support sending custom
-events.
-
 ## Contributing
 
-As stated above, the library is still quite barebone. If you'd like to request a
-feature, please [open an issue][issues].
+This library is still quite barebone. If you'd like to request a feature,
+please [open an issue][issues].
 
-If you'd like to contribute, please fork the repository and use a feature branch.
-Pull requests are warmly welcome.
+If you'd like to contribute, please fork the repository and use a feature
+branch. Pull requests are warmly welcome.
 
 Note: Do not add the `dist/` folder files to your pull request, as the master
 branch should have the most up-to-date version's build files included. The
@@ -114,13 +109,13 @@ new versions will be automatically fetched by `jsdelivr` to the CDN.
 
 ### Motivation
 
-This project was born, because it is currently impossible to use Google Analytics'
-official JS library to track your site if you want to achieve 100/100 in Google
-PageSpeed Insights.
+This project was born, because it is currently impossible to use Google
+Analytics' official JS library to track your site if you want to achieve 100/100
+in Google PageSpeed Insights.
 
-This happens, because Google Analytics' official JS library is has a cache header
-of the length of 2 hours. As PageSpeed Insights forces longer cache times, a
-custom GA library is practically the only way to achieve 100/100 points.
+This happens, because Google Analytics' official JS library is has a cache
+header of the length of 2 hours. As PageSpeed Insights forces longer cache
+times, a custom GA library is practically the only way to achieve 100/100 points.
 
 This project also makes it possible to:
 * Your site to load faster (as this is smaller lib than the official)
