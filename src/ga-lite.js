@@ -86,7 +86,7 @@
             };
         };
 
-        // Deplay the page load event by 100ms
+        // Delay the page load event by 100ms
         setTimeout(eventBuilder('pageview', null), 100);
 
         /**
