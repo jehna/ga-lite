@@ -16,7 +16,6 @@
         var pageLoadedTimestamp = new Date().getTime();
 
         window.galite = window.galite || {};
-        var req = new XMLHttpRequest();
         var urlBase = (
             'https://www.google-analytics.com/collect?' +
             'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
@@ -57,6 +56,7 @@
                 navigator.sendBeacon(url);
             } else {
                 try {
+                    var req = new XMLHttpRequest();
                     req.open('GET', url, false);
                     req.send();
                 } catch (e) {
