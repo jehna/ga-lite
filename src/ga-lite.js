@@ -50,7 +50,7 @@ GaLite.prototype.getOptionalStr = function(values) {
 };
 
 
-GaLite.prototype.eventBuilder = function(event, params) {
+GaLite.prototype.fireEvent = function(event, params) {
     self = this;
     if (this.doNotTrack === 1) {
         return;
@@ -73,17 +73,15 @@ GaLite.prototype.eventBuilder = function(event, params) {
     for (var key in params) {
         paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
     }
-    return function() {
-        var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
+    var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
 
-        self.sendTo(
-            url +
-            paramsStr +
-            anonymizeIp +
-            '&t=' + encodeURIComponent(event) +
-            '&z=' + new Date().getTime()
-        );
-    };
+    self.sendTo(
+        url +
+        paramsStr +
+        anonymizeIp +
+        '&t=' + encodeURIComponent(event) +
+        '&z=' + new Date().getTime()
+    );
 };
 
 
@@ -96,7 +94,12 @@ GaLite.prototype.addToPageLoad = function() {
         var pageLoadedTimestamp = new Date().getTime();
 
         // Delay the page load event by 100ms
-        setTimeout(self.eventBuilder('pageview', null), 100);
+        setTimeout(
+            function()
+            {
+                self.fireEvent('pageview', null);
+            },
+            100);
 
         /**
          * Note:
@@ -105,14 +108,17 @@ GaLite.prototype.addToPageLoad = function() {
          */
         window.addEventListener(
             'unload',
-            self.eventBuilder(
-                'timing',
-                {
-                    'utc': 'JS Dependencies',
-                    'utv': 'unload',
-                    'utt': (new Date().getTime() - pageLoadedTimestamp)
-                }
-            )
+            function()
+            {
+                self.fireEvent(
+                    'timing',
+                    {
+                        'utc': 'JS Dependencies',
+                        'utv': 'unload',
+                        'utt': (new Date().getTime() - pageLoadedTimestamp)
+                    }
+                )
+            }
         );
     });
 };
