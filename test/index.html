@@ -12,6 +12,15 @@ You should see a hit in your console.
 <script>
 var galite = new GaLite('UA-XXXXXX');
 galite.addToPageLoad();
+
+galite.fireEvent(
+    'event',
+    {
+        'ec': 'My Event Category',
+        'ea': 'My Event Action'
+    }
+);
+
 </script>
 </body>
 </html>
