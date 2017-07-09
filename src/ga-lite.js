@@ -1,93 +1,102 @@
-(function(window, localStorage, navigator, screen, document, encodeURIComponent) {
+function GaLite(ua) {
 
+    this.urlBase = (
+        'https://www.google-analytics.com/collect?' +
+        'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
+        '&v=1' +
+        '&tid=' + ua +
+        '&dl=' + encodeURIComponent(document.location.href) +
+        '&ul=en-us' +
+        '&de=UTF-8'
+    );
     // Check for doNotTrack variable. If it's present, the user has decided to
     // opt-out of the tracking, so we kill this tracking script immediately
-    var dnt = parseInt(
+    this.doNotTrack = parseInt(
         navigator.msDoNotTrack ||  // Internet Explorer 9 and 10 vendor prefix
         window.doNotTrack ||  // IE 11 uses window.doNotTrack
         navigator.doNotTrack,  // W3C
         10
     );
-    if (dnt === 1) {
+}
+
+
+GaLite.prototype.sendTo = function(url) {
+    if (navigator.sendBeacon) {
+        navigator.sendBeacon(url);
+    } else {
+        try {
+            var req = new XMLHttpRequest();
+            req.open('GET', url, false);
+            req.send();
+        } catch (e) {
+            // IE9 throws an error with cross-site XMLHttpRequest so
+            // we fall back to simple image request
+            var i = new Image();
+            i.src = url;
+        }
+    }
+};
+
+
+GaLite.prototype.getOptionalStr = function(values) {
+    var str = '';
+    for (var i in values) {
+        if (values[i] === undefined) {
+            return false;
+        }
+        str += encodeURIComponent(values[i]);
+    }
+    return str;
+};
+
+
+GaLite.prototype.eventBuilder = function(event, params) {
+    self = this;
+    if (this.doNotTrack === 1) {
         return;
     }
+    var optional = {
+        'dt': [document.title],
+        'sd': [screen.colorDepth, '-bit'],
+        'sr': [screen.availHeight, 'x', screen.availWidth],
+        'vp': [innerWidth, 'x', innerHeight],
+        'dr': [document.referrer]
+    };
+    var url = self.urlBase;
+    for (var key in optional) {
+        var value = key + '=' + self.getOptionalStr(optional[key]);
+        if (value) {
+            url += '&' + value;
+        }
+    }
+    var paramsStr = '';
+    for (var key in params) {
+        paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
+    }
+    return function() {
+        var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
 
+        self.sendTo(
+            url +
+            paramsStr +
+            anonymizeIp +
+            '&t=' + encodeURIComponent(event) +
+            '&z=' + new Date().getTime()
+        );
+    };
+};
+
+
+GaLite.prototype.addToPageLoad = function() {
+    self = this;
+    if (self.doNotTrack === 1) {
+        return;
+    }
     window.addEventListener('load', function() {
         var pageLoadedTimestamp = new Date().getTime();
 
-        window.galite = window.galite || {};
-        var urlBase = (
-            'https://www.google-analytics.com/collect?' +
-            'cid=' + (localStorage.uid = localStorage.uid || Math.random() + '.' + Math.random()) +
-            '&v=1' +
-            '&tid=' + galite.UA +
-            '&dl=' + encodeURIComponent(document.location.href) +
-            '&ul=en-us' +
-            '&de=UTF-8'
-        );
-
-        var getOptionalStr = function(values) {
-            var str = '';
-            for (var i in values) {
-                if (values[i] === undefined) {
-                    return false;
-                }
-                str += encodeURIComponent(values[i]);
-            }
-            return str;
-        };
-
-        var optional = {
-            'dt': [document.title],
-            'sd': [screen.colorDepth, '-bit'],
-            'sr': [screen.availHeight, 'x', screen.availWidth],
-            'vp': [innerWidth, 'x', innerHeight],
-            'dr': [document.referrer]
-        };
-        for (var key in optional) {
-            var value = key + '=' + getOptionalStr(optional[key]);
-            if (value) {
-                urlBase += '&' + value;
-            }
-        }
-
-        var sendTo = function(url) {
-            if (navigator.sendBeacon) {
-                navigator.sendBeacon(url);
-            } else {
-                try {
-                    var req = new XMLHttpRequest();
-                    req.open('GET', url, false);
-                    req.send();
-                } catch (e) {
-                    // IE9 throws an error with cross-site XMLHttpRequest so
-                    // we fall back to simple image request
-                    var i = new Image();
-                    i.src = url;
-                }
-            }
-        };
-
-        var eventBuilder = function(event, params) {
-            var paramsStr = '';
-            for (var key in params) {
-                paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
-            }
-            return function() {
-                var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
-
-                sendTo(
-                    urlBase +
-                    paramsStr +
-                    anonymizeIp +
-                    '&t=' + encodeURIComponent(event) +
-                    '&z=' + new Date().getTime()
-                );
-            };
-        };
-
         // Delay the page load event by 100ms
-        setTimeout(eventBuilder('pageview', null), 100);
+        setTimeout(self.eventBuilder('pageview', null), 100);
 
         /**
          * Note:
@@ -96,7 +105,7 @@
          */
         window.addEventListener(
             'unload',
-            eventBuilder(
+            self.eventBuilder(
                 'timing',
                 {
                     'utc': 'JS Dependencies',
@@ -106,4 +115,4 @@
             )
         );
     });
-})(window, localStorage, navigator, screen, document, encodeURIComponent);
+};

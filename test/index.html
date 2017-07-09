@@ -8,10 +8,10 @@
 You should see a hit in your console.
 <a href="index.html">Reload</a></pre>
 
-<script src="../src/ga-lite.js" async></script>
+<script src="../src/ga-lite.js"></script>
 <script>
-var galite = galite || {};
-galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
+var galite = new GaLite('UA-XXXXXX');
+galite.addToPageLoad();
 </script>
 </body>
 </html>
