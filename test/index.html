@@ -6,12 +6,21 @@
 <body>
 <pre>This is a test site for ga-lite.
 You should see a hit in your console.
-<a href=".">Reload</a></pre>
+<a href="index.html">Reload</a></pre>
 
-<script src="/ga-lite.js" async></script>
+<script src="../src/ga-lite.js"></script>
 <script>
-var galite = galite || {};
-galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
+var galite = new GaLite('UA-XXXXXX');
+galite.addToPageLoad();
+
+galite.fireEvent(
+    'event',
+    {
+        'ec': 'My Event Category',
+        'ea': 'My Event Action'
+    }
+);
+
 </script>
 </body>
 </html>
