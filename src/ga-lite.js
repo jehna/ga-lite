@@ -71,7 +71,7 @@ GaLite.prototype.fireEvent = function(event, params) {
     }
     var paramsStr = '';
     for (var key in params) {
-        paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
+        paramsStr += '&' + key + '=' + encodeURIComponent(params[key]);
     }
     var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
 
