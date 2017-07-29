@@ -1,16 +1,11 @@
 import getOptionalStr from './get-optional-string'
+import doNotTrackEnabled from './do-not-track-enabled'
 
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
 
     // Check for doNotTrack variable. If it's present, the user has decided to
     // opt-out of the tracking, so we kill this tracking script immediately
-    var dnt = parseInt(
-        navigator.msDoNotTrack ||  // Internet Explorer 9 and 10 vendor prefix
-        window.doNotTrack ||  // IE 11 uses window.doNotTrack
-        navigator.doNotTrack,  // W3C
-        10
-    );
-    if (dnt === 1) {
+    if (doNotTrackEnabled()) {
         return;
     }
 
