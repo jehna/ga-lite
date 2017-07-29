@@ -71,7 +71,7 @@
         var eventBuilder = function(event, params) {
             var paramsStr = '';
             for (var key in params) {
-                paramsStr = '&' + key + '=' + encodeURIComponent(params[key]);
+                paramsStr += '&' + key + '=' + encodeURIComponent(params[key]);
             }
             return function() {
                 var anonymizeIp = galite.anonymizeIp ? '&aip=1' : '';
@@ -86,7 +86,7 @@
             };
         };
 
-        // Deplay the page load event by 100ms
+        // Delay the page load event by 100ms
         setTimeout(eventBuilder('pageview', null), 100);
 
         /**
