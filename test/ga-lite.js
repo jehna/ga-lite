@@ -5,4 +5,8 @@ describe('galite', () => {
   it('should export a function', () => {
     expect(typeof galite).to.eql('function')
   })
+
+  it(`should throw when there's no command available`, () => {
+    expect(() => galite('this command sholud not exist')).to.throw()
+  })
 })

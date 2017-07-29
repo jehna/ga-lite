@@ -1,13 +1,20 @@
 import getOptionalStr from './get-optional-string'
 import doNotTrackEnabled from './do-not-track-enabled'
+import galiteCommands from './ga-lite-commands'
 
-export default function galite () {
+export default function galite (command, ...values) {
   // Check for doNotTrack variable. If it's present, the user has decided to
   // opt-out of the tracking, so we kill this tracking script
   if (doNotTrackEnabled()) {
     return
   }
 
+  if (!galiteCommands[command]) {
+    throw new Error(`Command ${command} is not available in ga-lite`)
+  }
+
+  // pass the
+  galiteCommands[command](...values)
 }
 
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
