@@ -1,3 +1,5 @@
+import getOptionalStr from './get-optional-string'
+
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
 
     // Check for doNotTrack variable. If it's present, the user has decided to
@@ -26,17 +28,6 @@
             '&ul=en-us' +
             '&de=UTF-8'
         );
-
-        var getOptionalStr = function(values) {
-            var str = '';
-            for (var i in values) {
-                if (values[i] === undefined) {
-                    return false;
-                }
-                str += encodeURIComponent(values[i]);
-            }
-            return str;
-        };
 
         var optional = {
             'dt': [document.title],
