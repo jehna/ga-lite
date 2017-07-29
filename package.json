@@ -5,7 +5,7 @@
   "main": " ",
   "scripts": {
     "test": "echo \"Error: no test specified but that's ok\"",
-    "build": "grunt build",
+    "build": "webpack",
     "release": "./do_release.sh"
   },
   "keywords": [
@@ -19,15 +19,6 @@
   "license": "MIT",
   "devDependencies": {
     "express": "^4.13.3",
-    "google-closure-compiler": "^20170218.0.0",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.7.0",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-express": "^1.4.1",
-    "grunt-jscs": "^2.3.0",
-    "grunt-parallel": "^0.4.1"
+    "webpack": "^3.4.1"
   }
 }
