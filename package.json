@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified but that's ok\"",
     "build": "webpack",
-    "release": "./do_release.sh"
+    "release": "./do_release.sh",
+    "lint": "eslint ./src/**/*.js ./test/**/*.js"
   },
   "keywords": [
     "google",
@@ -18,6 +19,12 @@
   "author": "Jesse Luoto",
   "license": "MIT",
   "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "express": "^4.13.3",
     "webpack": "^3.4.1"
   }
