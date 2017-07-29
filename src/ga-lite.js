@@ -1,13 +1,16 @@
 import getOptionalStr from './get-optional-string'
 import doNotTrackEnabled from './do-not-track-enabled'
 
-(function(window, localStorage, navigator, screen, document, encodeURIComponent) {
+export default function galite () {
+  // Check for doNotTrack variable. If it's present, the user has decided to
+  // opt-out of the tracking, so we kill this tracking script
+  if (doNotTrackEnabled()) {
+    return
+  }
 
-    // Check for doNotTrack variable. If it's present, the user has decided to
-    // opt-out of the tracking, so we kill this tracking script immediately
-    if (doNotTrackEnabled()) {
-        return;
-    }
+}
+
+(function(window, localStorage, navigator, screen, document, encodeURIComponent) {
 
     window.addEventListener('load', function() {
         var pageLoadedTimestamp = new Date().getTime();
