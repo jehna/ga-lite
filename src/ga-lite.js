@@ -92,4 +92,4 @@ import doNotTrackEnabled from './do-not-track-enabled'
             )
         );
     });
-})(window, localStorage, navigator, screen, document, encodeURIComponent);
+}) // (window, localStorage, navigator, screen, document, encodeURIComponent);
