@@ -4,7 +4,7 @@
   "description": "Small, cacheable subset of Google Analytics JS client",
   "main": " ",
   "scripts": {
-    "test": "mocha test/**/*.js",
+    "test": "mocha-webpack test/**/*.js",
     "build": "webpack",
     "release": "./do_release.sh",
     "lint": "eslint ./src/**/*.js ./test/**/*.js"
@@ -28,6 +28,7 @@
     "eslint-plugin-standard": "^3.0.1",
     "express": "^4.13.3",
     "mocha": "^3.4.2",
+    "mocha-webpack": "^0.7.0",
     "webpack": "^3.4.1"
   }
 }
