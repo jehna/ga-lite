@@ -23,6 +23,8 @@ export default function galite (command, ...values) {
   }
 }
 
+Object.keys(galiteCommands).forEach(key => { galite[key] = galiteCommands[key] });
+
 (function(window, localStorage, navigator, screen, document, encodeURIComponent) {
 
     window.addEventListener('load', function() {
