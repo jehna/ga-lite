@@ -1,4 +1,4 @@
-import objectToQueryString from '../src/object-to-query-string'
+import objectToQueryString from '../../src/object-to-query-string'
 import { expect } from 'chai'
 
 describe('objectToQueryString', () => {

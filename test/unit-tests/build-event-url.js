@@ -1,4 +1,4 @@
-import buildEventUrl from '../src/build-event-url'
+import buildEventUrl from '../../src/build-event-url'
 import { expect } from 'chai'
 
 describe('buildEventUrl', () => {

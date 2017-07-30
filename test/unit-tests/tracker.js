@@ -1,4 +1,4 @@
-import Tracker from '../src/tracker'
+import Tracker from '../../src/tracker'
 import MockStorage from './mock-storage'
 import { expect } from 'chai'
 

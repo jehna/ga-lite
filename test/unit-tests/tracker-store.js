@@ -1,4 +1,4 @@
-import * as trackerStore from '../src/tracker-store'
+import * as trackerStore from '../../src/tracker-store'
 import { expect } from 'chai'
 
 describe('trackerStore basic functions', () => {

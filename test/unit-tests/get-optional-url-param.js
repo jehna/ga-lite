@@ -1,4 +1,4 @@
-import getOptionalUrlParam from '../src/get-optional-url-param'
+import getOptionalUrlParam from '../../src/get-optional-url-param'
 import { expect } from 'chai'
 
 describe('getOptionalUrlParam', () => {

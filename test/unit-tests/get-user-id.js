@@ -1,4 +1,4 @@
-import getUserId from '../src/get-user-id'
+import getUserId from '../../src/get-user-id'
 import MockStorage from './mock-storage'
 import { expect } from 'chai'
 

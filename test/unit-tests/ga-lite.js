@@ -1,6 +1,6 @@
-import galite from '../src/ga-lite'
+import galite from '../../src/ga-lite'
 import { expect } from 'chai'
-import { clearStore, getAllTrackers } from '../src/tracker-store'
+import { clearStore, getAllTrackers } from '../../src/tracker-store'
 
 describe('galite', () => {
   beforeEach(() => {

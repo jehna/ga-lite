@@ -1,4 +1,4 @@
-import doNotTrackEnabled from '../src/do-not-track-enabled'
+import doNotTrackEnabled from '../../src/do-not-track-enabled'
 import { expect } from 'chai'
 
 describe('doNotTrackEnabled', () => {
