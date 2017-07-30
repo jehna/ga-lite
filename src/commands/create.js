@@ -1,8 +1,8 @@
 import { addTracker } from '../tracker-store'
-import Tracker from '../tracker'
-
-const DEFAULT_TRACKER_NAME = 't0'
+import Tracker, { DEFAULT_TRACKER_NAME } from '../tracker'
 
 export default function create (trackingId, cookieDomain, name = DEFAULT_TRACKER_NAME, fieldsObject) {
-  addTracker(name, new Tracker(trackingId))
+  const tracker = new Tracker(trackingId)
+  addTracker(name, tracker)
+  return tracker
 }
