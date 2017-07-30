@@ -9,7 +9,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: '[name].js',
-    libraryTarget: 'amd'
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+    library: ['galite']
   },
   target: 'web',
   plugins: [

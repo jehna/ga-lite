@@ -4,7 +4,9 @@
   "description": "Small, cacheable subset of Google Analytics JS client",
   "main": " ",
   "scripts": {
-    "test": "mocha-webpack test/**/*.js",
+    "test:browser": "wdio test/browser-tests/wdio.conf.js",
+    "test:unit": "mocha-webpack test/unit-tests/**/*.js",
+    "test": "npm run test:browser && npm run test:unit",
     "build": "webpack",
     "release": "./do_release.sh",
     "lint": "eslint ./src/**/*.js ./test/**/*.js"
@@ -33,6 +35,11 @@
     "express": "^4.13.3",
     "mocha": "^3.4.2",
     "mocha-webpack": "^0.7.0",
+    "wdio-mocha-framework": "^0.5.10",
+    "wdio-phantomjs-service": "^0.2.2",
+    "wdio-spec-reporter": "^0.1.0",
+    "wdio-webpack-service": "^1.0.1",
+    "webdriverio": "^4.8.0",
     "webpack": "^3.4.1"
   }
 }
