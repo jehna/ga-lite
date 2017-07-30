@@ -23,33 +23,4 @@ export default function galite (command, ...values) {
   }
 }
 
-Object.keys(galiteCommands).forEach(key => { galite[key] = galiteCommands[key] });
-
-(function(window, localStorage, navigator, screen, document, encodeURIComponent) {
-
-    window.addEventListener('load', function() {
-        var pageLoadedTimestamp = new Date().getTime();
-
-        window.galite = window.galite || {};
-
-        // Delay the page load event by 100ms
-        setTimeout(eventBuilder('pageview', null), 100);
-
-        /**
-         * Note:
-         * unload event does not fire on:
-         * - Android chrome on tab closing
-         */
-        window.addEventListener(
-            'unload',
-            eventBuilder(
-                'timing',
-                {
-                    'utc': 'JS Dependencies',
-                    'utv': 'unload',
-                    'utt': (new Date().getTime() - pageLoadedTimestamp)
-                }
-            )
-        );
-    });
-}) // (window, localStorage, navigator, screen, document, encodeURIComponent);
+Object.keys(galiteCommands).forEach(key => { galite[key] = galiteCommands[key] })
