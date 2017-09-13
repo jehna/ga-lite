@@ -11,7 +11,7 @@ You can install ga-lite to your project by adding the following code to the ende
 of your HTML `<body>`:
 
 ```html
-<script src="https://cdn.jsdelivr.net/ga-lite/latest/ga-lite.min.js" async></script>
+<script src="https://cdn.jsdelivr.net/npm/ga-lite@1.1.2/dist/ga-lite.min.js" async></script>
 <script>
 var galite = galite || {};
 galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
