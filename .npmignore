@@ -1,0 +1,8 @@
+node_modules
+Gruntfile.js
+do_release.sh
+yarn.lock
+.travis.yml
+.git
+.gitignore
+.jscsrc
