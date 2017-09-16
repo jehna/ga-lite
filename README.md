@@ -1,4 +1,5 @@
-<img src="https://travis-ci.org/jehna/ga-lite.svg?branch=master" alt="Build status">
+![Build status](https://travis-ci.org/jehna/ga-lite.svg?branch=master)
+[![JSDelivr](https://data.jsdelivr.com/v1/package/npm/ga-lite/badge)](https://www.jsdelivr.com/package/npm/ga-lite)
 
 # ga-lite
 > Small, cacheable subset of Google Analytics JS client
