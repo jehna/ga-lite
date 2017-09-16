@@ -53,9 +53,16 @@
         }
 
         var sendTo = function(url) {
+            //sendBeacon() will return false if you attempt to send too much
+            //data. This limit is per-page for some browsers such as Chrome.
+            var useFallback = true;
             if (navigator.sendBeacon) {
-                navigator.sendBeacon(url);
-            } else {
+                if (navigator.sendBeacon(url)) {
+                    useFallback = false;
+                }
+            }
+
+            if (useFallback) {
                 try {
                     req.open('GET', url, false);
                     req.send();
