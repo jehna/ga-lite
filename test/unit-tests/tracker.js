@@ -56,4 +56,23 @@ describe('Tracker', () => {
     tracker.set('randomValue', randomValue)
     expect(tracker.get('randomValue')).to.eql(randomValue)
   })
+
+  it('should send correct pageview event with arguments', (done) => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const timestamp = Date.now()
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=pageview' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&dp=/hello/world.html' +
+        '&z=' + timestamp,
+      done
+    )
+    tracker.send('pageview', '/hello/world.html')
+  })
 })

@@ -17,7 +17,7 @@ export default class Tracker {
   send (hitType, ...fieldsObject) {
     const params = {
       hitType,
-      ...argumentsToFields(fieldsObject),
+      ...argumentsToFields(hitType, fieldsObject),
       ...this.fields
     }
     const url = buildEventUrl(this.fields.trackingId, this._getTime(), this.userId, params)
