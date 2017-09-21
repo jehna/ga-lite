@@ -15,13 +15,11 @@ export default class Tracker {
   }
 
   send (hitType, ...fieldsObject) {
-    const params = Object.assign(
-      {
-        hitType
-      },
-      argumentsToFields(fieldsObject),
-      this.fields
-    )
+    const params = {
+      hitType,
+      ...argumentsToFields(fieldsObject),
+      ...this.fields
+    }
     const url = buildEventUrl(this.fields.trackingId, this._getTime(), this.userId, params)
     this._sendTo(url)
   }

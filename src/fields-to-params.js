@@ -1,9 +1,10 @@
 export default function fieldsToParams (fieldsObject) {
   return Object.keys(fieldsObject)
     .filter(fieldName => FIELDS_TO_PARAMS_MAP.hasOwnProperty(fieldName))
-    .reduce((obj, fieldName) => {
-      return Object.assign({}, obj, { [FIELDS_TO_PARAMS_MAP[fieldName]]: fieldsObject[fieldName] })
-    }, {})
+    .reduce((obj, fieldName) => ({
+      ...obj,
+      [FIELDS_TO_PARAMS_MAP[fieldName]]: fieldsObject[fieldName]
+    }), {})
 }
 
 const FIELDS_TO_PARAMS_MAP = {

@@ -21,7 +21,7 @@ describe('Tracker', () => {
 
   it('should export a class', () => {
     expect(typeof Tracker).to.eql('function')
-    expect(() => Tracker()).to.throw(TypeError, `Class constructor Tracker cannot be invoked without 'new'`)
+    expect(() => Tracker()).to.throw(TypeError, `Cannot call a class as a function`)
   })
 
   it('should send correct URL on "send" method', (done) => {
