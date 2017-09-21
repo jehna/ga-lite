@@ -47,7 +47,7 @@ const FIELDS_TO_PARAMS_MAP = {
   currencyCode: 'cu',
   socialNetwork: 'sn',
   socialAction: 'sa',
-  socialTarget: 'st ',
+  socialTarget: 'st',
   timingCategory: 'utc',
   timingVar: 'utv',
   timingValue: 'utt',

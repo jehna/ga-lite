@@ -75,4 +75,69 @@ describe('Tracker', () => {
     )
     tracker.send('pageview', '/hello/world.html')
   })
+
+  it('should send correct "event" event with arguments', (done) => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const timestamp = Date.now()
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=event' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&ec=link' +
+        '&ea=click' +
+        '&el=http://example.com' +
+        '&ev=55' +
+        '&z=' + timestamp,
+      done
+    )
+    tracker.send('event', 'link', 'click', 'http://example.com', 55)
+  })
+
+  it('should send correct social event with arguments', (done) => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const timestamp = Date.now()
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=social' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&sn=facebook' +
+        '&sa=like' +
+        '&st=http://foo.com' +
+        '&z=' + timestamp,
+      done
+    )
+    tracker.send('social', 'facebook', 'like', 'http://foo.com')
+  })
+
+  it('should send correct timing event with arguments', (done) => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const timestamp = Date.now()
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=timing' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&utc=category' +
+        '&utv=lookup' +
+        '&utt=123' +
+        '&utl=label' +
+        '&z=' + timestamp,
+      done
+    )
+    tracker.send('timing', 'category', 'lookup', 123, 'label')
+  })
 })

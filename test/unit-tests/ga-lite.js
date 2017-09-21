@@ -91,4 +91,32 @@ describe('galite', () => {
 
     galite(`${trackerName}.send`, 'pageview')
   })
+
+  it('should call complex tracker functions', (done) => {
+    const timestamp = Date.now()
+
+    const localStorage = new MockStorage()
+    localStorage.setItem('uid', '12345')
+    global.window.localStorage = localStorage
+
+    galite('create', 'UA-XXXXXX', 'auto')
+    const tracker = galite.getByName(DEFAULT_TRACKER_NAME)
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=timing' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&utc=category' +
+        '&utv=lookup' +
+        '&utt=123' +
+        '&utl=label' +
+        '&z=' + timestamp,
+      done
+    )
+
+    galite('send', 'timing', 'category', 'lookup', 123, 'label')
+  })
 })
