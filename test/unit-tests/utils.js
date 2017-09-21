@@ -1,4 +1,4 @@
-import URL from 'URL'
+import URL from 'url'
 import querystring from 'querystring'
 import { expect } from 'chai'
 

@@ -36,6 +36,7 @@
     "express": "^4.13.3",
     "mocha": "^3.4.2",
     "mocha-webpack": "^0.7.0",
+    "url": "^0.11.0",
     "wdio-mocha-framework": "^0.5.10",
     "wdio-phantomjs-service": "^0.2.2",
     "wdio-spec-reporter": "^0.1.0",
