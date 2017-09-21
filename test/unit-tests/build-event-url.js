@@ -1,4 +1,5 @@
 import buildEventUrl from '../../src/build-event-url'
+import { assertUrlsEqual } from './utils'
 import { expect } from 'chai'
 
 describe('buildEventUrl', () => {
@@ -6,7 +7,7 @@ describe('buildEventUrl', () => {
   const timestamp = Date.now()
   const userId = '12345'
   const trackingId = 'UA-XXXXXX'
-  const eventName = 'MyEvent'
+  const hitType = 'MyEvent'
 
   beforeEach(() => {
     global.window = { screen: {}, localStorage: { uid: '12345' } }
@@ -23,11 +24,11 @@ describe('buildEventUrl', () => {
   })
 
   it('should build a correct URL with minimal params', () => {
-    expect(buildEventUrl(eventName, userId, trackingId, timestamp)).to.eql(
+    assertUrlsEqual(
+      buildEventUrl(trackingId, timestamp, userId),
       baseUrl +
       '&cid=' + userId +
       '&tid=' + trackingId +
-      '&t=' + eventName +
       '&z=' + timestamp
     )
   })
@@ -43,40 +44,48 @@ describe('buildEventUrl', () => {
     global.window.innerHeight = 240
     global.document.referrer = 'http://localhost/referrer'
 
-    expect(buildEventUrl(eventName, userId, trackingId, timestamp)).to.eql(
-      baseUrl +
-      '&dl=http%3A%2F%2Flocalhost%2F' +
-      '&dt=' + title +
-      '&sd=24-bit' +
-      '&sr=600x800' +
-      '&vp=320x240' +
-      '&dr=http%3A%2F%2Flocalhost%2Freferrer' +
-      '&cid=' + userId +
-      '&tid=' + trackingId +
-      '&t=' + eventName +
-      '&z=' + timestamp
+    assertUrlsEqual(
+      buildEventUrl(trackingId, timestamp, userId, { hitType }),
+      (
+        baseUrl +
+        '&dl=http%3A%2F%2Flocalhost%2F' +
+        '&dt=' + title +
+        '&sd=24-bit' +
+        '&sr=600x800' +
+        '&vp=320x240' +
+        '&dr=http%3A%2F%2Flocalhost%2Freferrer' +
+        '&cid=' + userId +
+        '&tid=' + trackingId +
+        '&t=' + hitType +
+        '&z=' + timestamp
+      )
     )
   })
 
-  it('should build a correct URL with extra params', () => {
-    expect(buildEventUrl(eventName, userId, trackingId, timestamp, { hello: 'world' })).to.eql(
-      baseUrl +
-      '&hello=world' +
-      '&cid=' + userId +
-      '&tid=' + trackingId +
-      '&t=' + eventName +
-      '&z=' + timestamp
+  it('should build a correct URL excluding extra params', () => {
+    assertUrlsEqual(
+      buildEventUrl(trackingId, timestamp, userId, { hitType, hello: 'world' }),
+      (
+        baseUrl +
+        '&cid=' + userId +
+        '&tid=' + trackingId +
+        '&t=' + hitType +
+        '&z=' + timestamp
+      )
     )
   })
 
   it('should build a correct URL with anonymized ip', () => {
-    expect(buildEventUrl(eventName, userId, trackingId, timestamp, {}, true)).to.eql(
-      baseUrl +
-      '&aip=1' +
-      '&cid=' + userId +
-      '&tid=' + trackingId +
-      '&t=' + eventName +
-      '&z=' + timestamp
+    assertUrlsEqual(
+      buildEventUrl(trackingId, timestamp, userId, { hitType }, true),
+      (
+        baseUrl +
+        '&aip=1' +
+        '&cid=' + userId +
+        '&tid=' + trackingId +
+        '&t=' + hitType +
+        '&z=' + timestamp
+      )
     )
   })
 })
