@@ -13,3 +13,10 @@ export function assertUrlsEqual (url1, url2) {
   expect(builtUrl.protocol).to.eql(expectedUrl.protocol)
   expect(builtQueryString).to.eql(expectedQueryString)
 }
+
+export function assertSentTo (url, done) {
+  return (matchUrl) => {
+    assertUrlsEqual(url, matchUrl)
+    done()
+  }
+}

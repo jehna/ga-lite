@@ -1,7 +1,7 @@
 import Tracker from '../../src/tracker'
 import MockStorage from './mock-storage'
 import { expect } from 'chai'
-import { assertUrlsEqual } from './utils'
+import { assertSentTo } from './utils'
 
 describe('Tracker', () => {
   const localStorage = new MockStorage()
@@ -29,20 +29,15 @@ describe('Tracker', () => {
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
     tracker._getTime = () => timestamp
-    tracker._sendTo = (url) => {
-      assertUrlsEqual(
-        url,
-        (
-          'https://www.google-analytics.com/collect' +
-          '?v=1&ul=en-us&de=UTF-8' +
-          '&t=pageview' +
-          '&cid=12345' +
-          '&tid=UA-XXXXXX' +
-          '&z=' + timestamp
-        )
-      )
-      done()
-    }
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=pageview' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&z=' + timestamp,
+      done
+    )
     tracker.send('pageview')
   })
 

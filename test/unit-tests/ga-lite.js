@@ -3,7 +3,7 @@ import Tracker, { DEFAULT_TRACKER_NAME } from '../../src/tracker'
 import MockStorage from './mock-storage'
 import { expect } from 'chai'
 import { clearStore, getAllTrackers } from '../../src/tracker-store'
-import { assertUrlsEqual } from './utils'
+import { assertSentTo } from './utils'
 
 describe('galite', () => {
   beforeEach(() => {
@@ -54,20 +54,15 @@ describe('galite', () => {
     const tracker = galite.getByName(DEFAULT_TRACKER_NAME)
     tracker._getTime = () => timestamp
 
-    tracker._sendTo = (url) => {
-      assertUrlsEqual(
-        url,
-        (
-          'https://www.google-analytics.com/collect' +
-          '?v=1&ul=en-us&de=UTF-8' +
-          '&t=pageview' +
-          '&cid=12345' +
-          '&tid=UA-XXXXXX' +
-          '&z=' + timestamp
-        )
-      )
-      done()
-    }
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=pageview' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&z=' + timestamp,
+      done
+    )
 
     galite('send', 'pageview')
   })
@@ -84,20 +79,15 @@ describe('galite', () => {
     const tracker = galite.getByName(trackerName)
     tracker._getTime = () => timestamp
 
-    tracker._sendTo = (url) => {
-      assertUrlsEqual(
-        url,
-        (
-          'https://www.google-analytics.com/collect' +
-          '?v=1&ul=en-us&de=UTF-8' +
-          '&t=pageview' +
-          '&cid=12345' +
-          '&tid=UA-XXXXXX' +
-          '&z=' + timestamp
-        )
-      )
-      done()
-    }
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=pageview' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&z=' + timestamp,
+      done
+    )
 
     galite(`${trackerName}.send`, 'pageview')
   })
