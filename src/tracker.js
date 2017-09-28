@@ -40,7 +40,7 @@ function getTime () {
 
 function argumentsToFields (hitType, args = []) {
   if (args.length === 1 && args[0].constructor === Object) {
-    return args
+    return args[0]
   } else {
     switch (hitType) {
       case 'pageview':

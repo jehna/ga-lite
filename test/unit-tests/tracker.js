@@ -140,4 +140,27 @@ describe('Tracker', () => {
     )
     tracker.send('timing', 'category', 'lookup', 123, 'label')
   })
+
+  it('should send correct exception event with arguments', (done) => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const timestamp = Date.now()
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=exception' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&exd=DatabaseError' +
+        '&exf=1' +
+        '&z=' + timestamp,
+      done
+    )
+    tracker.send('exception', {
+      exDescription: 'DatabaseError',
+      exFatal: true
+    })
+  })
 })
