@@ -25,19 +25,17 @@ describe('simple events', () => {
     browser.url('http://localhost:8080/')
     browser.execute(function () { window.galite('send', 'pageview') })
     return promise.then(req => {
-      expect(req.url).to.include(
-        '/collect?v=1&ul=en-us&de=UTF-8' +
-        '&dl=http%3A%2F%2Flocalhost%3A8080%2F' +
-        '&dt=' +
-        '&sd=32-bit' +
-        '&sr=768x1024' +
-        '&vp=400x300' +
-        '&dr=' +
-        '&cid=12345' +
-        '&tid=UA-12345' +
-        '&t=pageview' +
-        '&z='
-      )
+      expect(req.url).to.include('/collect?v=1&ul=en-us&de=UTF-8')
+      expect(req.url).to.include('&dl=http%3A%2F%2Flocalhost%3A8080%2F')
+      expect(req.url).to.include('&dt=')
+      expect(req.url).to.include('&sd=32-bit')
+      expect(req.url).to.include('&sr=768x1024')
+      expect(req.url).to.include('&vp=400x300')
+      expect(req.url).to.include('&dr=')
+      expect(req.url).to.include('&cid=12345')
+      expect(req.url).to.include('&tid=UA-12345')
+      expect(req.url).to.include('&t=pageview')
+      expect(req.url).to.include('&z=')
     })
   })
 })

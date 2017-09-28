@@ -10,16 +10,26 @@ export default function galite (command, ...values) {
     return
   }
 
+  const [trackerName, trackerCommand] = splitTrackerCommand(command)
+
   const commandFoundInGlobalCommands = !!galiteCommands[command]
-  const commandFoundInTrackerMethods = !!Tracker.prototype[command] && command !== 'constructor'
+  const commandFoundInTrackerMethods = !!Tracker.prototype[trackerCommand] && trackerCommand !== 'constructor'
 
   if (commandFoundInGlobalCommands) {
     galiteCommands[command](...values)
   } else if (commandFoundInTrackerMethods) {
-    const defaultTracker = getTracker(DEFAULT_TRACKER_NAME)
-    defaultTracker[command](...values)
+    const tracker = getTracker(trackerName)
+    tracker[trackerCommand](...values)
   } else {
     throw new Error(`Command ${command} is not available in ga-lite`)
+  }
+}
+
+function splitTrackerCommand (command) {
+  if (command.indexOf('.') > -1) {
+    return command.split('.')
+  } else {
+    return [DEFAULT_TRACKER_NAME, command]
   }
 }
 
