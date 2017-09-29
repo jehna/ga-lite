@@ -3,6 +3,7 @@ import galiteCommands from './ga-lite-commands'
 import { getTracker } from './tracker-store'
 import Tracker, { DEFAULT_TRACKER_NAME } from './tracker'
 import getTasksInCommandQueue from './get-tasks-in-command-queue'
+import './simple-polyfill-array-from'
 
 export default function galite (command, ...values) {
   // Check for doNotTrack variable. If it's present, the user has decided to
