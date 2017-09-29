@@ -22,13 +22,16 @@ export default function galite (command, ...values) {
   } else if (commandFoundInTrackerMethods) {
     const tracker = getTracker(trackerName)
     tracker[trackerCommand](...values)
+  } else if (typeof command === 'function') {
+    const tracker = getTracker(trackerName)
+    command(tracker)
   } else {
     throw new Error(`Command ${command} is not available in ga-lite`)
   }
 }
 
 function splitTrackerCommand (command) {
-  if (command.indexOf('.') > -1) {
+  if (typeof command === 'string' && command.indexOf('.') > -1) {
     return command.split('.')
   } else {
     return [DEFAULT_TRACKER_NAME, command]

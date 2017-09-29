@@ -10,15 +10,14 @@
     localStorage.uid = '12345'
     galite('create', 'UA-12345')
 
-    function changeTrackerPointToLocalhost (trackerName) {
-      var tracker = galite.getByName(trackerName)
+    function changeTrackerPointToLocalhost (tracker) {
       var sendTo = tracker._sendTo
       tracker._sendTo = function (url) {
         sendTo(url.replace('https://www.google-analytics.com/', 'http://localhost:8080/'))
       }
     }
 
-    changeTrackerPointToLocalhost('t0') // Default tracker
+    galite(changeTrackerPointToLocalhost)
   </script>
 </body>
 </html>
