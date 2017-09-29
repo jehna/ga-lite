@@ -2,6 +2,7 @@ import doNotTrackEnabled from './do-not-track-enabled'
 import galiteCommands from './ga-lite-commands'
 import { getTracker } from './tracker-store'
 import Tracker, { DEFAULT_TRACKER_NAME } from './tracker'
+import getTasksInCommandQueue from './get-tasks-in-command-queue'
 
 export default function galite (command, ...values) {
   // Check for doNotTrack variable. If it's present, the user has decided to
@@ -34,3 +35,5 @@ function splitTrackerCommand (command) {
 }
 
 Object.keys(galiteCommands).forEach(key => { galite[key] = galiteCommands[key] })
+
+getTasksInCommandQueue().forEach(args => galite(...args))
