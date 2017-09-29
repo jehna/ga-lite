@@ -5,9 +5,13 @@
   "jsdelivr": "dist/ga-lite.min.js",
   "main": " ",
   "scripts": {
-    "test": "echo \"Error: no test specified but that's ok\"",
-    "build": "grunt build",
-    "release": "./do_release.sh"
+    "test:browser": "wdio test/browser-tests/wdio.conf.js",
+    "test:unit": "mocha-webpack --webpack-config webpack.config-test.babel.js test/unit-tests/**/*.js",
+    "test": "npm run test:browser && npm run test:unit",
+    "build": "webpack",
+    "release": "./do_release.sh",
+    "lint": "eslint ./src/**/*.js ./test/**/*.js",
+    "require-script": "uglifyjs src/require-ga-lite.js --mangle --beautify beautify=false,max_line_len=85"
   },
   "keywords": [
     "google",
@@ -19,16 +23,28 @@
   "author": "Jesse Luoto",
   "license": "MIT",
   "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-es2015": "^6.24.1",
+    "chai": "^4.1.0",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
     "express": "^4.13.3",
-    "google-closure-compiler": "^20170218.0.0",
-    "grunt": "^0.4.5",
-    "grunt-cli": "^0.1.13",
-    "grunt-contrib-clean": "^0.7.0",
-    "grunt-contrib-copy": "^0.8.2",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-watch": "^0.6.1",
-    "grunt-express": "^1.4.1",
-    "grunt-jscs": "^2.3.0",
-    "grunt-parallel": "^0.4.1"
+    "mocha": "^3.4.2",
+    "mocha-webpack": "^0.7.0",
+    "uglify-js": "^3.1.2",
+    "url": "^0.11.0",
+    "wdio-mocha-framework": "^0.5.10",
+    "wdio-phantomjs-service": "^0.2.2",
+    "wdio-spec-reporter": "^0.1.0",
+    "wdio-webpack-service": "^1.0.1",
+    "webdriverio": "^4.8.0",
+    "webpack": "^3.4.1"
   }
 }

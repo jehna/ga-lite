@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <script>
+    (function(e,t,n,i,s,a,c){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)}
+    ;a=t.createElement(i);c=t.getElementsByTagName(i)[0];a.async=true;a.src=s
+    ;c.parentNode.insertBefore(a,c)
+    })(window,document,"galite","script","/js/ga-lite.js");
+
+    localStorage.uid = '12345'
+    galite('create', 'UA-12345')
+
+    function changeTrackerPointToLocalhost (tracker) {
+      var sendTo = tracker._sendTo
+      tracker._sendTo = function (url) {
+        sendTo(url.replace('https://www.google-analytics.com/', 'http://localhost:8080/'))
+      }
+    }
+
+    galite(changeTrackerPointToLocalhost)
+  </script>
+</body>
+</html>
