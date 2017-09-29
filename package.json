@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Small, cacheable subset of Google Analytics JS client",
   "jsdelivr": "dist/ga-lite.min.js",
-  "main": " ",
+  "main": "dist/ga-lite.min.js",
   "scripts": {
     "test:browser": "wdio test/browser-tests/wdio.conf.js",
     "test:unit": "mocha-webpack --webpack-config webpack.config-test.babel.js test/unit-tests/**/*.js",

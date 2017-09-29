@@ -35,6 +35,45 @@ This includes the most recent version of ga-lite to your site from the JSDelivr
 CDN, initializes the script with your own UA code and sends the current page's
 pageview event.
 
+### Hosting on your own server
+
+If you're hosting the script on your own server, just grab the
+`dist/ga-lite.min.js` and upload it to your server. Then change the URL from the
+loading script (starting with `https://cdn.jsdelivr.net`) to point to your own
+server.
+
+### Install via NPM
+
+If you're using a module bundler like Browserify or Webpack, You can also
+install the package straight with npm:
+
+```bash
+npm install ga-lite --save-dev
+```
+
+After the installation, you can use ga-lite in your code by requiring the
+package:
+
+**ES5:**
+```js
+const galite = require('ga-lite')
+
+galite('create', 'UA-XXXXXXXX-X', 'auto')
+galite('send', 'pageview')
+```
+
+**ES6:**
+```js
+import galite from 'ga-lite'
+
+galite('create', 'UA-XXXXXXXX-X', 'auto')
+galite('send', 'pageview')
+```
+
+This imports the package from your `node_modules/` and bundles it to your app's
+bundle file. This way you don't need to use the loader script to load the
+tracker from an external file.
+
 ### Public API
 
 This project uses same public API as the official `analytics.js` script. You can
