@@ -193,14 +193,14 @@ initial ga-lite library.
 You must now use the `galite` function to initialize your tracker and send the
 initial pageview. So the following code in v1:
 
-```
+```js
 var galite = galite || {};
 galite.UA = 'UA-XXXXXX';
 ```
 
 Will need to be converted to:
 
-```
+```js
 galite('create', 'UA-XXXXXXXX-X', 'auto');
 galite('send', 'pageview');
 ```
