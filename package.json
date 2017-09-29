@@ -9,7 +9,8 @@
     "test": "npm run test:browser && npm run test:unit",
     "build": "webpack",
     "release": "./do_release.sh",
-    "lint": "eslint ./src/**/*.js ./test/**/*.js"
+    "lint": "eslint ./src/**/*.js ./test/**/*.js",
+    "require-script": "uglifyjs src/require-ga-lite.js --mangle --beautify beautify=false,max_line_len=85"
   },
   "keywords": [
     "google",
@@ -36,6 +37,7 @@
     "express": "^4.13.3",
     "mocha": "^3.4.2",
     "mocha-webpack": "^0.7.0",
+    "uglify-js": "^3.1.2",
     "url": "^0.11.0",
     "wdio-mocha-framework": "^0.5.10",
     "wdio-phantomjs-service": "^0.2.2",

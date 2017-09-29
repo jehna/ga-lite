@@ -119,4 +119,13 @@ describe('galite', () => {
 
     galite('send', 'timing', 'category', 'lookup', 123, 'label')
   })
+
+  it('should callback with default tracker when called with function', (done) => {
+    galite('create', 'UA-XXXXXX', 'auto')
+    const defaultTracker = galite.getByName(DEFAULT_TRACKER_NAME)
+    galite(tracker => {
+      expect(tracker).to.equal(defaultTracker)
+      done()
+    })
+  })
 })

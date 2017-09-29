@@ -1,25 +1,56 @@
-<img src="https://travis-ci.org/jehna/ga-lite.svg?branch=master" alt="Build status">
+![Build status](https://travis-ci.org/jehna/ga-lite.svg?branch=master)
+[![JSDelivr](https://data.jsdelivr.com/v1/package/npm/ga-lite/badge)](https://www.jsdelivr.com/package/npm/ga-lite)
 
 # ga-lite
-> Small, cacheable subset of Google Analytics JS client
+> Smaller, cacheable subset of Google Analytics JS client
 
-This project is a non-official client for [Google Analytics API][ga-api].
+This project is a non-official implementation for Google Analytics tracker
+script [analytics.js][analytics-js]. It uses the
+[official API by Google][ga-api] to send analytics events to Google Analytics.
+
+## Version 2 is out! 🎉
+
+Make sure you check the [migration guide](#migrating-from-v1) if you're
+upgrading.
 
 ## Install to your project
 
-You can install ga-lite to your project by adding the following code to the ended
-of your HTML `<body>`:
+The easiest way to install ga-lite to your project is to include the following
+script to your website:
 
 ```html
-<script src="https://cdn.jsdelivr.net/ga-lite/latest/ga-lite.min.js" async></script>
 <script>
-var galite = galite || {};
-galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
+(function(e,t,n,i,s,a,c){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)}
+;a=t.createElement(i);c=t.getElementsByTagName(i)[0];a.async=true;a.src=s
+;c.parentNode.insertBefore(a,c)
+})(window,document,"galite","script","https://cdn.jsdelivr.net/npm/ga-lite@2/dist/ga-lite.min.js");
+
+galite('create', 'UA-XXXXXXXX-X', 'auto');
+galite('send', 'pageview');
 </script>
 ```
 
-This includes the most recent version of ga-lite to your site and initializes
-the script with your own UA code.
+This includes the most recent version of ga-lite to your site from the JSDelivr
+CDN, initializes the script with your own UA code and sends the current page's
+pageview event.
+
+### Public API
+
+This project uses same public API as the official `analytics.js` script. You can
+refer to the usage from the
+[Google's official analytics.js documentation][analytics-js].
+
+Only use the `galite` global function instead of `ga` function.
+
+### Migrating from analytics.js
+
+As ga-lite uses same public API as the official `analytics.js`, the migration
+from `analytics.js` is really straightforward:
+
+1. Include the ga-lite script
+2. Replace any `ga()` function call with `galite()`
+
+If you find any features that are not implemented yet, please open an issue.
 
 ## Developing
 
@@ -29,7 +60,40 @@ Install the project by running:
 npm install
 ```
 
-This installs the needed dependencies for this project.
+This installs the needed dependencies for developing this project.
+
+### Running tests
+
+This project uses Mocha unit tests to cover most of the code in this repository.
+Also wdio tests are used to test behaviour in actual browser.
+
+You can run the tests by running:
+
+```shell
+npm test
+```
+
+This runs both unit tests and browser tests in your local machine.
+
+#### Running unit tests
+
+You can run only unit tests by running:
+
+```shell
+npm run test:unit
+```
+
+This runs all Mocha tests inside `test/unit-tests/` folder.
+
+#### Running browser tests
+
+You can run all browser tests by running:
+
+```shell
+npm run test:browser
+```
+
+This runs all the wdio specs from `test/browser-tests/specs/` folder.
 
 ### Building
 
@@ -39,8 +103,8 @@ You can compile this project with npm command:
 npm run build
 ```
 
-Once the compilation has ended, Grunt has compiled the assets from `/src` folder
-to `/dest` folder.
+Once the compilation has ended, webpack has compiled the assets from `/src`
+folder to `/dest` folder.
 
 Do not add the `dest/` folder files manually to your pull request. The deploy is
 done automatically.
@@ -61,44 +125,40 @@ You'll need to push the tag and commit to git manually.
 
 ## Features
 
-At this point the plugin sends the GA `pageview` event to the Google Analytics
-server on page load and other custom `unload` event on page unload.
+This project was first created to be a simple, cacheable alternative to Google
+Analytics to gain Google Page Speed test score of 100/100.
 
-Unload event is used so the GA would track the average time spent on page
-better.
+However the project exceeded expectations with popularity, and the version 2.0
+is built to support many of the official `analytics.js` script's methods:
 
-## Configuration
+- Page Tracking
+- Event Tracking
+- Social Interactions
+- User Timings
+- Exception Tracking
 
-#### UA
-Type: `String`  
-Required: `true`
+How does this script differ from the official `analytics.js` script? Here's a
+comparison:
 
-The UA code from your [Google Analytics admin panel][ua-code-howto].
+| Feature                                      | ga-lite | analytics.js      |
+|----------------------------------------------|---------|-------------------|
+| Supported by Google                          | No *    | Yes               |
+| Size                                         | ~ 8 kB  | ~ 30 kB           |
+| Cacheable as long as you want                | Yes     | No (only 2 hours) |
+| Open Source                                  | Yes     | No                |
+| Can be hosted on your own server             | Yes     | No                |
+| Gets disabled on "Do not track" browser flag | Yes     | No                |
+| Number of official features                  | Most    | All               |
+| Can be installed from NPM                    | Yes     | No                |
+| Can be bundled to your vendor.js bundle      | Yes     | No                |
+| Browser support                              | Modern  | [Modern and IE10+][analytics-js-support] |
 
-Example:
-```javascript
-var galite = galite || {};
-galite.UA = 'UA-123456';
-```
-
-#### anonymizeIp
-Type: `Boolean`  
-Default: `false`
-
-Sets the [aip flag][aip-flag] that advices GA to
-[anonymize the IP address][anonymize-ip-address].
-
-Example:
-```javascript
-var galite = galite || {};
-galite.UA = 'UA-XXXXXX'; // Insert your tracking code here
-galite.anonymizeIp = true;
-```
+\*) But uses Google's official, supported API
 
 ## Contributing
 
-This library is still quite barebone. If you'd like to request a feature,
-please [open an issue][issues].
+If you'd like to request a feature, or if you find any official `analytics.js`
+pubic feature missing, please [open an issue][issues].
 
 If you'd like to contribute, please fork the repository and use a feature
 branch. Pull requests are warmly welcome.
@@ -124,13 +184,67 @@ This project also makes it possible to:
 You can read more from the [blog post][blog-post] that's written about the
 library.
 
+## Migrating from v1
+
+Note that version 2 is a complete, not backwards compatible rewrite from the
+initial ga-lite library.
+
+You must now use the `galite` function to initialize your tracker and send the
+initial pageview. So the following code in v1:
+
+```
+var galite = galite || {};
+galite.UA = 'UA-XXXXXX';
+```
+
+Will need to be converted to:
+
+```
+galite('create', 'UA-XXXXXXXX-X', 'auto');
+galite('send', 'pageview');
+```
+
+Notice that ga-lite does not send any events or page views anymore on your
+behalf. You must explicitly call `galite('send', 'pageview')` to send the
+initial page view event.
+
+### Onunload tracking
+
+The version 1 also automatically sent an event on the page's `unload` event.
+This was created, because Google Analytics only shows you "time on page" between
+the first and last event that you have sent.
+
+Now normally this is fine, as you expect your user to browser different pages
+and spend a lot of time on your website. But when user bounces (visits only a
+single page), the time is not tracked realistically.
+
+For example: User comes from Reddit to read your blog post. You only send the
+`pageview` event to Google Analytics. User reads the article and leaves the
+site. GA then shows the time spent on page as 0, even if the user did read the
+whole article and spent time with it.
+
+This can be overcome by sending a beacon on the `unload` event, which v1 did
+automatically. To avoid any drop in your site's metrics, please include the
+following script to your page (after loading ga-lite):
+
+```html
+<script>
+window.addEventListener(
+  'unload',
+  function () { galite('timing', 'JS Dependencies', 'unload') }
+)
+</script>
+```
+
 ## Licensing
 
 The code in this project is licensed under MIT license.
 
+[analytics-js]:https://developers.google.com/analytics/devguides/collection/analyticsjs/
 [ga-api]:https://developers.google.com/analytics/devguides/collection/protocol/v1/reference
 [issues]:https://github.com/jehna/ga-lite/issues
 [blog-post]:http://thejunkland.com/blog/fixing-last-point-on-google-pagespeed-insights.html
 [aip-flag]:https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#aip
 [anonymize-ip-address]:https://support.google.com/analytics/answer/2763052
 [ua-code-howto]:https://support.google.com/analytics/answer/1032385
+[analytics-js-support]:https://analytics.googleblog.com/2014/12/keeping-ga-web-experience-modern.html
