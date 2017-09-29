@@ -232,7 +232,7 @@ following script to your page (after loading ga-lite):
 <script>
 window.addEventListener(
   'unload',
-  function () { galite('timing', 'JS Dependencies', 'unload') }
+  function () { galite('send', 'timing', 'JS Dependencies', 'unload') }
 )
 </script>
 ```
