@@ -1,5 +1,6 @@
 ![Build status](https://travis-ci.org/jehna/ga-lite.svg?branch=master)
 [![JSDelivr](https://data.jsdelivr.com/v1/package/npm/ga-lite/badge)](https://www.jsdelivr.com/package/npm/ga-lite)
+[![Coverage Status](https://coveralls.io/repos/github/jehna/ga-lite/badge.svg?branch=coveralls)](https://coveralls.io/github/jehna/ga-lite?branch=coveralls)
 
 # ga-lite
 > Smaller, cacheable subset of Google Analytics JS client

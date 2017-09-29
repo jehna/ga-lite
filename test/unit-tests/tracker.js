@@ -163,4 +163,20 @@ describe('Tracker', () => {
       exFatal: true
     })
   })
+
+  it('should set correct timestamp', (done) => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const start = Date.now()
+    tracker._sendTo = url => {
+      const trackerTime = parseInt(url.match(/z=(\d+)/)[1])
+      const end = Date.now()
+
+      expect(trackerTime).to.be.gte(start)
+      expect(trackerTime).to.be.lte(end)
+      done()
+    }
+
+    tracker.send('pageview', '/hello/world.html')
+  })
 })
