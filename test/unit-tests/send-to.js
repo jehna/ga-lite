@@ -73,4 +73,27 @@ describe('sendTo', () => {
     sendTo(expected)
     expect(setSrc).to.eql(expected)
   })
+
+  it('should fallback to use XMLHttpRequest if sendBeacon returns false', (done) => {
+    const expected = 'http://google.com/'
+
+    global.navigator = {
+      sendBeacon: () => false
+    }
+    global.window.XMLHttpRequest = function () {
+      this.didOpen = false
+      this.open = function (method, url, sync) {
+        expect(sync).to.eql(false)
+        expect(url).to.eql(expected)
+        expect(method).to.eql('GET')
+        this.didOpen = true
+      }
+      this.send = function () {
+        expect(this.didOpen).to.eql(true)
+        done()
+      }
+    }
+
+    sendTo(expected)
+  })
 })
