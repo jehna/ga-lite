@@ -115,7 +115,7 @@ The deploy is done automatically by Travis. Creating a new release is done with
 the following npm command:
 
 ```shell
-npm run deploy
+npm run release
 ```
 
 This command will ask for new version number and it will create the build commit
