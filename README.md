@@ -193,7 +193,7 @@ comparison:
 | Can be bundled to your vendor.js bundle      | Yes     | No                |
 | Browser support                              | Modern  | [Modern and IE10+][analytics-js-support] |
 
-\*) But uses Google's official, supported API
+\* But uses Google's official, supported API
 
 ## Contributing
 
