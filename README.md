@@ -213,8 +213,8 @@ This project was born, because it is currently impossible to use Google
 Analytics' official JS library to track your site if you want to achieve 100/100
 in Google PageSpeed Insights.
 
-This happens, because Google Analytics' official JS library is has a cache
-header of the length of 2 hours. As PageSpeed Insights forces longer cache
+This happens, because Google Analytics' official JS library has a cache
+header with the length of 2 hours. As PageSpeed Insights forces longer cache
 times, a custom GA library is practically the only way to achieve 100/100 points.
 
 This project also makes it possible to:
