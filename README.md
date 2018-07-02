@@ -276,6 +276,21 @@ window.addEventListener(
 </script>
 ```
 
+## FAQ
+### Why does ga-lite error with Pingdom?
+When you run a website speed test with [Pingdom's speed test](https://tools.pingdom.com/), the connection to `www.google-analytics.com` that ga-lite makes fails. You'll see a connection error appearing:
+
+![Pingdom connection error](https://image.prntscr.com/image/8jpMsmh1RU20SIklIPnFIw.png)
+
+Plus the connection to `www.google-analytics.com` in the page waterfall fails:
+
+![Pingdom cannot connect to GA](https://image.prntscr.com/image/23gsbn-kR8ybj4YZGoefHg.png)
+
+This error happens because Google Analytics blocks requests that the Pingdom bot makes. This error *does not* mean that ga-lite is broken or implemented incorrectly.
+
+If you want to perform a website speed test that loads ga-lite correctly, use [Webpagetest.org](http://www.webpagetest.org/).
+
+
 ## Licensing
 
 The code in this project is licensed under MIT license.
