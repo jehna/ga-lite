@@ -25,7 +25,6 @@ script [analytics.js][analytics-js]. It uses the
 - [Migrating from v1](#migrating-from-v1)
 - [Licensing](#licensing)
 
-<!-- /TOC -->
 ## Version 2 is out! 🎉
 
 Make sure you check the [migration guide](#migrating-from-v1) if you're
