@@ -9,6 +9,23 @@ This project is a non-official implementation for Google Analytics tracker
 script [analytics.js][analytics-js]. It uses the
 [official API by Google][ga-api] to send analytics events to Google Analytics.
 
+## Contents
+- [Install to your project](#install-to-your-project)
+    - [Hosting on your own server](#hosting-on-your-own-server)
+    - [Install via NPM](#install-via-npm)
+    - [Public API](#public-api)
+    - [Migrating from analytics.js](#migrating-from-analyticsjs)
+- [Developing](#developing)
+    - [Running tests](#running-tests)
+    - [Building](#building)
+    - [Deploying](#deploying)
+- [Features](#features)
+- [Contributing](#contributing)
+    - [Motivation](#motivation)
+- [Migrating from v1](#migrating-from-v1)
+- [Licensing](#licensing)
+
+<!-- /TOC -->
 ## Version 2 is out! 🎉
 
 Make sure you check the [migration guide](#migrating-from-v1) if you're
