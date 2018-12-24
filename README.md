@@ -100,7 +100,7 @@ compatible version of node.
 Install the project by running:
 
 ```shell
-npm install
+yarn
 ```
 
 This installs the needed dependencies for developing this project.
@@ -113,7 +113,7 @@ Also wdio tests are used to test behaviour in actual browser.
 You can run the tests by running:
 
 ```shell
-npm test
+yarn test
 ```
 
 This runs both unit tests and browser tests in your local machine.
@@ -123,7 +123,7 @@ This runs both unit tests and browser tests in your local machine.
 You can run only unit tests by running:
 
 ```shell
-npm run test:unit
+yarn test:unit
 ```
 
 This runs all Mocha tests inside `test/unit-tests/` folder.
@@ -133,17 +133,17 @@ This runs all Mocha tests inside `test/unit-tests/` folder.
 You can run all browser tests by running:
 
 ```shell
-npm run test:browser
+yarn test:browser
 ```
 
 This runs all the wdio specs from `test/browser-tests/specs/` folder.
 
 ### Building
 
-You can compile this project with npm command:
+You can compile this project with the yarn command:
 
 ```shell
-npm run build
+yarn build
 ```
 
 Once the compilation has ended, webpack has compiled the assets from `/src`
@@ -155,10 +155,10 @@ done automatically.
 ### Deploying
 
 The deploy is done automatically by Travis. Creating a new release is done with
-the following npm command:
+the following yarn command:
 
 ```shell
-npm run release
+yarn release
 ```
 
 This command will ask for new version number and it will create the build commit
