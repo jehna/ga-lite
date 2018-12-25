@@ -94,6 +94,9 @@ If you find any features that are not implemented yet, please open an issue.
 
 ## Developing
 
+If you have `nvm`, execute `nvm i` in the project directory to use a
+compatible version of node.
+
 Install the project by running:
 
 ```shell
