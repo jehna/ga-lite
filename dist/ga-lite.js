@@ -273,6 +273,11 @@ function buildEventUrl(trackingId, timestamp, userId) {
   var paramsQueryString = objectToQueryString(fieldsToParams(params));
   return getBaseUrl() + (paramsQueryString ? '&' + paramsQueryString : '') + (anonymizeIp ? '&aip=1' : '') + '&cid=' + userId + '&tid=' + trackingId + '&z=' + timestamp;
 }
+// CONCATENATED MODULE: ./src/user-opted-out.js
+function userOptedOut(trackerName) {
+  // https://developers.google.com/analytics/devguides/collection/analyticsjs/user-opt-out#opt-out_of_tracking_for_your_site
+  return window["ga-disable-".concat(trackerName)] === true;
+}
 // CONCATENATED MODULE: ./src/tracker.js
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
@@ -297,6 +302,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+
 var DEFAULT_TRACKER_NAME = 't0';
 
 var tracker_Tracker =
@@ -316,6 +322,10 @@ function () {
   _createClass(Tracker, [{
     key: "send",
     value: function send(hitType) {
+      if (userOptedOut(this.fields.trackingId)) {
+        return;
+      }
+
       for (var _len = arguments.length, fieldsObject = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
         fieldsObject[_key - 1] = arguments[_key];
       }
@@ -499,7 +509,7 @@ function galite(command) {
     ga_lite_commands[command].apply(ga_lite_commands, values);
   } else if (commandFoundInTrackerMethods) {
     var tracker = getTracker(trackerName);
-    tracker[trackerCommand].apply(tracker, values);
+    if (tracker) tracker[trackerCommand].apply(tracker, values);
   } else if (typeof command === 'function') {
     var _tracker = getTracker(trackerName);
 

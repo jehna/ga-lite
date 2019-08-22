@@ -1,6 +1,7 @@
 import sendTo from './send-to'
 import getUserId from './get-user-id'
 import buildEventUrl from './build-event-url'
+import userOptedOut from './user-opted-out'
 
 export const DEFAULT_TRACKER_NAME = 't0'
 
@@ -15,6 +16,10 @@ export default class Tracker {
   }
 
   send(hitType, ...fieldsObject) {
+    if (userOptedOut(this.fields.trackingId)) {
+      return
+    }
+
     const params = {
       hitType,
       ...argumentsToFields(hitType, fieldsObject),
