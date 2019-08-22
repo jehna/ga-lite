@@ -1,6 +1,8 @@
 const USER_ID_KEY = 'uid'
 
-export default function getUserId (storage = window ? window.localStorage : null) {
+export default function getUserId(
+  storage = window ? window.localStorage : null
+) {
   if (storage && storage.getItem(USER_ID_KEY)) {
     return storage.getItem(USER_ID_KEY)
   }

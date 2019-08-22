@@ -5,7 +5,7 @@ import Tracker, { DEFAULT_TRACKER_NAME } from './tracker'
 import getTasksInCommandQueue from './get-tasks-in-command-queue'
 import './simple-polyfill-array-from'
 
-export default function galite (command, ...values) {
+export default function galite(command, ...values) {
   // Check for doNotTrack variable. If it's present, the user has decided to
   // opt-out of the tracking, so we kill this tracking script
   if (doNotTrackEnabled()) {
@@ -15,7 +15,8 @@ export default function galite (command, ...values) {
   const [trackerName, trackerCommand] = splitTrackerCommand(command)
 
   const commandFoundInGlobalCommands = !!galiteCommands[command]
-  const commandFoundInTrackerMethods = !!Tracker.prototype[trackerCommand] && trackerCommand !== 'constructor'
+  const commandFoundInTrackerMethods =
+    !!Tracker.prototype[trackerCommand] && trackerCommand !== 'constructor'
 
   if (commandFoundInGlobalCommands) {
     galiteCommands[command](...values)
@@ -30,7 +31,7 @@ export default function galite (command, ...values) {
   }
 }
 
-function splitTrackerCommand (command) {
+function splitTrackerCommand(command) {
   if (typeof command === 'string' && command.indexOf('.') > -1) {
     return command.split('.')
   } else {
@@ -38,6 +39,8 @@ function splitTrackerCommand (command) {
   }
 }
 
-Object.keys(galiteCommands).forEach(key => { galite[key] = galiteCommands[key] })
+Object.keys(galiteCommands).forEach(key => {
+  galite[key] = galiteCommands[key]
+})
 
 getTasksInCommandQueue().forEach(args => galite(...args))

@@ -1,9 +1,8 @@
 import fieldsToParams from '../../src/fields-to-params'
-import { expect } from 'chai'
 
 describe('fieldsToParams', () => {
   it('should export a function', () => {
-    expect(fieldsToParams).to.be.a('function')
+    expect(fieldsToParams).toBeInstanceOf(Function)
   })
 
   it('should convert some random fields correctly', () => {
@@ -22,6 +21,6 @@ describe('fieldsToParams', () => {
       el: 'Like!',
       ev: 10
     }
-    expect(fieldsToParams(input)).to.eql(output)
+    expect(fieldsToParams(input)).toStrictEqual(output)
   })
 })

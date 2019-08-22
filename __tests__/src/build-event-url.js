@@ -1,9 +1,9 @@
 import buildEventUrl from '../../src/build-event-url'
-import { assertUrlsEqual } from './utils'
-import { expect } from 'chai'
+import { assertUrlsEqual } from '../utils'
 
 describe('buildEventUrl', () => {
-  const baseUrl = 'https://www.google-analytics.com/collect?v=1&ul=en-us&de=UTF-8'
+  const baseUrl =
+    'https://www.google-analytics.com/collect?v=1&ul=en-us&de=UTF-8'
   const timestamp = Date.now()
   const userId = '12345'
   const trackingId = 'UA-XXXXXX'
@@ -20,16 +20,13 @@ describe('buildEventUrl', () => {
   })
 
   it('should export a function', () => {
-    expect(typeof buildEventUrl).to.eql('function')
+    expect(buildEventUrl).toBeInstanceOf(Function)
   })
 
   it('should build a correct URL with minimal params', () => {
     assertUrlsEqual(
       buildEventUrl(trackingId, timestamp, userId),
-      baseUrl +
-      '&cid=' + userId +
-      '&tid=' + trackingId +
-      '&z=' + timestamp
+      baseUrl + '&cid=' + userId + '&tid=' + trackingId + '&z=' + timestamp
     )
   })
 
@@ -46,46 +43,53 @@ describe('buildEventUrl', () => {
 
     assertUrlsEqual(
       buildEventUrl(trackingId, timestamp, userId, { hitType }),
-      (
-        baseUrl +
+      baseUrl +
         '&dl=http%3A%2F%2Flocalhost%2F' +
-        '&dt=' + title +
+        '&dt=' +
+        title +
         '&sd=24-bit' +
         '&sr=600x800' +
         '&vp=320x240' +
         '&dr=http%3A%2F%2Flocalhost%2Freferrer' +
-        '&cid=' + userId +
-        '&tid=' + trackingId +
-        '&t=' + hitType +
-        '&z=' + timestamp
-      )
+        '&cid=' +
+        userId +
+        '&tid=' +
+        trackingId +
+        '&t=' +
+        hitType +
+        '&z=' +
+        timestamp
     )
   })
 
   it('should build a correct URL excluding extra params', () => {
     assertUrlsEqual(
       buildEventUrl(trackingId, timestamp, userId, { hitType, hello: 'world' }),
-      (
-        baseUrl +
-        '&cid=' + userId +
-        '&tid=' + trackingId +
-        '&t=' + hitType +
-        '&z=' + timestamp
-      )
+      baseUrl +
+        '&cid=' +
+        userId +
+        '&tid=' +
+        trackingId +
+        '&t=' +
+        hitType +
+        '&z=' +
+        timestamp
     )
   })
 
   it('should build a correct URL with anonymized ip', () => {
     assertUrlsEqual(
       buildEventUrl(trackingId, timestamp, userId, { hitType }, true),
-      (
-        baseUrl +
+      baseUrl +
         '&aip=1' +
-        '&cid=' + userId +
-        '&tid=' + trackingId +
-        '&t=' + hitType +
-        '&z=' + timestamp
-      )
+        '&cid=' +
+        userId +
+        '&tid=' +
+        trackingId +
+        '&t=' +
+        hitType +
+        '&z=' +
+        timestamp
     )
   })
 })
