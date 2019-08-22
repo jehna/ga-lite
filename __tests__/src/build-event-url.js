@@ -48,7 +48,7 @@ describe('buildEventUrl', () => {
         '&dt=' +
         title +
         '&sd=24-bit' +
-        '&sr=600x800' +
+        '&sr=800x600' +
         '&vp=320x240' +
         '&dr=http%3A%2F%2Flocalhost%2Freferrer' +
         '&cid=' +

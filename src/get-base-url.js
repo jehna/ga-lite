@@ -10,9 +10,9 @@ export default function getBaseUrl(trackingId, userId) {
     getOptionalUrlParam('dt', [document.title]) +
     getOptionalUrlParam('sd', [window.screen.colorDepth, '-bit']) +
     getOptionalUrlParam('sr', [
-      window.screen.availHeight,
+      window.screen.availWidth,
       'x',
-      window.screen.availWidth
+      window.screen.availHeight
     ]) +
     getOptionalUrlParam('vp', [window.innerWidth, 'x', window.innerHeight]) +
     getOptionalUrlParam('dr', [document.referrer])

@@ -11,6 +11,8 @@ deploy:
 # https://github.com/laverdet/node-fibers/issues/331#issuecomment-274826954
 env:
   - CXX=g++-4.8
+before_script:
+  - yarn lint && yarn build
 
 after_success:
   - npm run cover

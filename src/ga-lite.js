@@ -22,7 +22,7 @@ export default function galite(command, ...values) {
     galiteCommands[command](...values)
   } else if (commandFoundInTrackerMethods) {
     const tracker = getTracker(trackerName)
-    tracker[trackerCommand](...values)
+    if (tracker) tracker[trackerCommand](...values)
   } else if (typeof command === 'function') {
     const tracker = getTracker(trackerName)
     command(tracker)
