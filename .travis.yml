@@ -3,29 +3,21 @@ deploy:
   provider: npm
   email: jesse.luoto@gmail.com
   api_key:
-    secure: q0p/p6PAZn7bzUEK28/3YRPg96P9a4DzgkOK3PAV4uRIMBctGbCfsbu6VC5H+nOr0FmkfMKWJoSYYVydMTATIt6EaKfC/IEkZIqU9S2tTDQEwWrYCIOVJynp/cg8WcXoaPYkSmfwA2xwqo6iSyHdDI10g785ex7CD5/Tys1ZdEzPqMvvfPJRZ9oRR1H9IZVpsoDupeC/cgTcx4I+pHKH4J171N5WRvfUg/FZ2mZB1PU1PPt0UKxeZqoqzfYbe5z8uTszKzvO3ZJV94YohVjT3AkBnzt3HXIosJQwrEiWxj5BytAr8pzsMqmXqk5ymuKO4MvXzENvpAfhqsdoTrCl5LALPnh2OpVStI0DuhDWBxxzQ0/sDb7Mzr5ZfBfAUFrNfrEhEdTIaNnA/yW9sO32Wf+VWK9NOrT9PbuQYJCynKDRfVncuu4DbRrNmkGkhX6lr33CBkFqQ+sGXACJV39fVlCnPIMBcFEjF1wCmxu/yyTIpa67TD+IPnav7k7XmDi55ty4okLETBQ7PKvy+jylWnooHL+bwfbEnfCNrf5uYvKW4xADvj2ek5pF2sGzr0MfIkIGSAIFanMC9UOZZvd3jFwh9ZT4/Lfuya0LXBDVVNHBlB2+0McTbO2OkMlf56ERwFvLNN44MVYVytFrie0n5aede9cvWhc9ity3/s4lrLQ=
+    secure: CDdAJTqdfVyipuNffrBpPE8126zjG54Y/pVryVSB82FijU7CXj8AdR6JWGae10qeGE/6Jgy79JlnO0/mBHsHrkSY05p4w96UetXNw/bzffXdKOfS0OeraBvCl4YCxPgWkKxsLzb9s99DPIisuAPguFC9OsNhQUnegHM6ZKms2kFSasl54NjrW2MaAogESjfYZ5WtISkRaJMnb0Xo/MOuf+FeTspGMeQtVEUZaqtw06YcolUnierl+2Ia3VP3Tb9SJOuKKSXBcXlUEWasshB37OtOE2pbXoaJNHTCv7BbTt5LAQmAyD0F7+y/RON2lOAd8hCIwVsw9ZXP1v5/9pT4ar1M5/O77Zu9jBoxqtkUIBcce012pIHyz7Jswlme5ZGhDURl2lzZJNaXl8W9HToK7Ed6tmMns4yZBj7zMZOqckNiGDrnWznTwVmeh6mo6Oayu9l+QBjxsSQSNB51YNq+3fH2jV8jD/RZgWGydM7f6rW8TPjE1PFiVc7lmcZs4pk1uNTVPhNv79+b42dTJH90C0P5jVzsw39812j0RRzczvKDLErZU5vFeAeP7E1IHXjnRJBNqexQEyQ/taB4bFsWN9mEr6Dq42y2GJFCNhBpXNK7Ld3A1Yu5Km5dST40IIJ4bGjoPeDUaFwktHEJgqWiJDRoFep37zB8flxxUFLVp5A=
   on:
     tags: true
     repo: jehna/ga-lite
-
-# https://github.com/laverdet/node-fibers/issues/331#issuecomment-274826954
 env:
-  - CXX=g++-4.8
+- CXX=g++-4.8
 before_script:
-  - yarn lint && yarn build
-
+- yarn lint && yarn build
 after_success:
-  - npm run cover
-
+- npm run cover
 addons:
   apt:
     packages:
-      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
-      - libgconf-2-4
+    - libgconf-2-4
 cache:
-  # Caches $HOME/.npm when npm ci is default script command
-  # Caches node_modules in all other cases
   npm: true
   directories:
-    # we also need to cache folder with Cypress binary
-    - $HOME/.cache/Cypress
+  - "$HOME/.cache/Cypress"
