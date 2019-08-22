@@ -1,6 +1,6 @@
 {
   "name": "ga-lite",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Small, cacheable subset of Google Analytics JS client",
   "jsdelivr": "dist/ga-lite.min.js",
   "main": "dist/ga-lite.min.js",

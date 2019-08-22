@@ -182,7 +182,6 @@ function getOptionalStr(key) {
   if (!key || values.indexOf(undefined) > -1) return '';
   return '&' + key + '=' + values.map(encodeURIComponent).join('');
 }
-;
 // CONCATENATED MODULE: ./src/get-base-url.js
 
 function getBaseUrl(trackingId, userId) {
@@ -208,7 +207,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 function fieldsToParams(fieldsObject) {
   return Object.keys(fieldsObject).filter(function (fieldName) {
-    return FIELDS_TO_PARAMS_MAP.hasOwnProperty(fieldName);
+    return Object.prototype.hasOwnProperty.call(FIELDS_TO_PARAMS_MAP, fieldName);
   }).filter(function (fieldName) {
     return fieldsObject[fieldName];
   }).reduce(function (obj, fieldName) {
@@ -359,52 +358,60 @@ function argumentsToFields(hitType) {
   } else {
     switch (hitType) {
       case 'pageview':
-        var _args = _slicedToArray(args, 1),
-            page = _args[0];
+        {
+          var _args = _slicedToArray(args, 1),
+              page = _args[0];
 
-        return {
-          page: page
-        };
+          return {
+            page: page
+          };
+        }
 
       case 'event':
-        var _args2 = _slicedToArray(args, 4),
-            eventCategory = _args2[0],
-            eventAction = _args2[1],
-            eventLabel = _args2[2],
-            eventValue = _args2[3];
+        {
+          var _args2 = _slicedToArray(args, 4),
+              eventCategory = _args2[0],
+              eventAction = _args2[1],
+              eventLabel = _args2[2],
+              eventValue = _args2[3];
 
-        return {
-          eventCategory: eventCategory,
-          eventAction: eventAction,
-          eventLabel: eventLabel,
-          eventValue: eventValue
-        };
+          return {
+            eventCategory: eventCategory,
+            eventAction: eventAction,
+            eventLabel: eventLabel,
+            eventValue: eventValue
+          };
+        }
 
       case 'social':
-        var _args3 = _slicedToArray(args, 3),
-            socialNetwork = _args3[0],
-            socialAction = _args3[1],
-            socialTarget = _args3[2];
+        {
+          var _args3 = _slicedToArray(args, 3),
+              socialNetwork = _args3[0],
+              socialAction = _args3[1],
+              socialTarget = _args3[2];
 
-        return {
-          socialNetwork: socialNetwork,
-          socialAction: socialAction,
-          socialTarget: socialTarget
-        };
+          return {
+            socialNetwork: socialNetwork,
+            socialAction: socialAction,
+            socialTarget: socialTarget
+          };
+        }
 
       case 'timing':
-        var _args4 = _slicedToArray(args, 4),
-            timingCategory = _args4[0],
-            timingVar = _args4[1],
-            timingValue = _args4[2],
-            timingLabel = _args4[3];
+        {
+          var _args4 = _slicedToArray(args, 4),
+              timingCategory = _args4[0],
+              timingVar = _args4[1],
+              timingValue = _args4[2],
+              timingLabel = _args4[3];
 
-        return {
-          timingCategory: timingCategory,
-          timingVar: timingVar,
-          timingValue: timingValue,
-          timingLabel: timingLabel
-        };
+          return {
+            timingCategory: timingCategory,
+            timingVar: timingVar,
+            timingValue: timingValue,
+            timingLabel: timingLabel
+          };
+        }
 
       default:
         return {};
