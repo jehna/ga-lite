@@ -1,14 +1,17 @@
 context('ga-lite', () => {
   beforeEach(() => {
+    cy.viewport(1280, 720)
     cy.visit('cypress/fixtures/index.html')
   })
 
   it('should respond correctly to pageview event', () => {
+    let sr = ''
     cy.server()
     cy.route(/www.google-analytics.com\/collect/, '').as('gaCollect')
     cy.window().then(win => {
       cy.stub(win.navigator, 'sendBeacon')
       win.localStorage.setItem('uid', '11223344')
+      sr = `${win.screen.availWidth}x${win.screen.availHeight}`
     })
 
     cy.window().invoke('galite', 'create', 'UA-54321')
@@ -24,8 +27,8 @@ context('ga-lite', () => {
       )
       expect(url.search).to.include('&dt=')
       expect(url.search).to.include('&sd=24-bit')
-      expect(url.search).to.include('&sr=928x1680')
-      expect(url.search).to.include('vp=1000x660')
+      expect(url.search).to.include('&sr=' + sr)
+      expect(url.search).to.include('vp=1280x720')
       expect(url.search).to.include('&dr=')
       expect(url.search).to.include('&cid=11223344')
       expect(url.search).to.include('&tid=UA-54321')
