@@ -1,5 +1,4 @@
 language: node_js
-cache: yarn
 deploy:
   provider: npm
   email: jesse.luoto@gmail.com
@@ -14,11 +13,17 @@ env:
   - CXX=g++-4.8
 
 after_success:
-- npm run cover
+  - npm run cover
 
 addons:
-    apt:
-      sources:
-        - ubuntu-toolchain-r-test
-      packages:
-        - g++-4.8
+  apt:
+    packages:
+      # Ubuntu 16+ does not install this dependency by default, so we need to install it ourselves
+      - libgconf-2-4
+cache:
+  # Caches $HOME/.npm when npm ci is default script command
+  # Caches node_modules in all other cases
+  npm: true
+  directories:
+    # we also need to cache folder with Cypress binary
+    - $HOME/.cache/Cypress

@@ -3,6 +3,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/jehna/ga-lite/badge.svg?branch=coveralls)](https://coveralls.io/github/jehna/ga-lite?branch=coveralls)
 
 # ga-lite
+
 > Smaller, cacheable subset of Google Analytics JS client
 
 This project is a non-official implementation for Google Analytics tracker
@@ -21,13 +22,27 @@ script to your website:
 
 ```html
 <script>
-(function(e,t,n,i,s,a,c){e[n]=e[n]||function(){(e[n].q=e[n].q||[]).push(arguments)}
-;a=t.createElement(i);c=t.getElementsByTagName(i)[0];a.async=true;a.src=s
-;c.parentNode.insertBefore(a,c)
-})(window,document,"galite","script","https://cdn.jsdelivr.net/npm/ga-lite@2/dist/ga-lite.min.js");
+  ;(function(e, t, n, i, s, a, c) {
+    e[n] =
+      e[n] ||
+      function() {
+        ;(e[n].q = e[n].q || []).push(arguments)
+      }
+    a = t.createElement(i)
+    c = t.getElementsByTagName(i)[0]
+    a.async = true
+    a.src = s
+    c.parentNode.insertBefore(a, c)
+  })(
+    window,
+    document,
+    'galite',
+    'script',
+    'https://cdn.jsdelivr.net/npm/ga-lite@2/dist/ga-lite.min.js'
+  )
 
-galite('create', 'UA-XXXXXXXX-X', 'auto');
-galite('send', 'pageview');
+  galite('create', 'UA-XXXXXXXX-X', 'auto')
+  galite('send', 'pageview')
 </script>
 ```
 
@@ -55,6 +70,7 @@ After the installation, you can use ga-lite in your code by requiring the
 package:
 
 **ES5:**
+
 ```js
 const galite = require('ga-lite')
 
@@ -63,6 +79,7 @@ galite('send', 'pageview')
 ```
 
 **ES6:**
+
 ```js
 import galite from 'ga-lite'
 
@@ -107,8 +124,8 @@ This installs the needed dependencies for developing this project.
 
 ### Running tests
 
-This project uses Mocha unit tests to cover most of the code in this repository.
-Also wdio tests are used to test behaviour in actual browser.
+This project uses Jest unit tests to cover most of the code in this repository.
+Also Cypress tests are used to test behaviour in actual browser.
 
 You can run the tests by running:
 
@@ -126,7 +143,7 @@ You can run only unit tests by running:
 yarn test:unit
 ```
 
-This runs all Mocha tests inside `test/unit-tests/` folder.
+This runs all Jest tests inside `test/unit-tests/` folder.
 
 #### Running browser tests
 
@@ -136,7 +153,7 @@ You can run all browser tests by running:
 yarn test:browser
 ```
 
-This runs all the wdio specs from `test/browser-tests/specs/` folder.
+This runs all the Cypress specs from `test/browser-tests/specs/` folder.
 
 ### Building
 
@@ -183,17 +200,17 @@ is built to support many of the official `analytics.js` script's methods:
 How does this script differ from the official `analytics.js` script? Here's a
 comparison:
 
-| Feature                                      | ga-lite | analytics.js      |
-|----------------------------------------------|---------|-------------------|
-| Supported by Google                          | No *    | Yes               |
-| Size                                         | ~ 8 kB  | ~ 30 kB           |
-| Cacheable as long as you want                | Yes     | No (only 2 hours) |
-| Open Source                                  | Yes     | No                |
-| Can be hosted on your own server             | Yes     | No                |
-| Gets disabled on "Do not track" browser flag | Yes     | No                |
-| Number of official features                  | Most    | All               |
-| Can be installed from NPM                    | Yes     | No                |
-| Can be bundled to your vendor.js bundle      | Yes     | No                |
+| Feature                                      | ga-lite | analytics.js                             |
+| -------------------------------------------- | ------- | ---------------------------------------- |
+| Supported by Google                          | No \*   | Yes                                      |
+| Size                                         | ~ 8 kB  | ~ 30 kB                                  |
+| Cacheable as long as you want                | Yes     | No (only 2 hours)                        |
+| Open Source                                  | Yes     | No                                       |
+| Can be hosted on your own server             | Yes     | No                                       |
+| Gets disabled on "Do not track" browser flag | Yes     | No                                       |
+| Number of official features                  | Most    | All                                      |
+| Can be installed from NPM                    | Yes     | No                                       |
+| Can be bundled to your vendor.js bundle      | Yes     | No                                       |
 | Browser support                              | Modern  | [Modern and IE10+][analytics-js-support] |
 
 \* But uses Google's official, supported API
@@ -221,8 +238,9 @@ header with the length of 2 hours. As PageSpeed Insights forces longer cache
 times, a custom GA library is practically the only way to achieve 100/100 points.
 
 This project also makes it possible to:
-* Get your site to load faster (as this is smaller lib than the official)
-* Be sure your site won't serve any code you can't check yourself
+
+- Get your site to load faster (as this is smaller lib than the official)
+- Be sure your site won't serve any code you can't check yourself
 
 You can read more from the [blog post][blog-post] that's written about the
 library.
@@ -236,15 +254,15 @@ You must now use the `galite` function to initialize your tracker and send the
 initial pageview. So the following code in v1:
 
 ```js
-var galite = galite || {};
-galite.UA = 'UA-XXXXXX';
+var galite = galite || {}
+galite.UA = 'UA-XXXXXX'
 ```
 
 Will need to be converted to:
 
 ```js
-galite('create', 'UA-XXXXXXXX-X', 'auto');
-galite('send', 'pageview');
+galite('create', 'UA-XXXXXXXX-X', 'auto')
+galite('send', 'pageview')
 ```
 
 Notice that ga-lite does not send any events or page views anymore on your
@@ -272,15 +290,16 @@ following script to your page (after loading ga-lite):
 
 ```html
 <script>
-window.addEventListener(
-  'unload',
-  function () { galite('send', 'timing', 'JS Dependencies', 'unload') }
-)
+  window.addEventListener('unload', function() {
+    galite('send', 'timing', 'JS Dependencies', 'unload')
+  })
 </script>
 ```
 
 ## FAQ
+
 ### Why does ga-lite error with Pingdom?
+
 When you run a website speed test with [Pingdom's speed test](https://tools.pingdom.com/), the connection to `www.google-analytics.com` that ga-lite makes fails. You'll see a connection error appearing:
 
 ![Pingdom connection error](https://image.prntscr.com/image/8jpMsmh1RU20SIklIPnFIw.png)
@@ -289,20 +308,19 @@ Plus the connection to `www.google-analytics.com` in the page waterfall fails:
 
 ![Pingdom cannot connect to GA](https://image.prntscr.com/image/23gsbn-kR8ybj4YZGoefHg.png)
 
-This error happens because Google Analytics blocks requests that the Pingdom bot makes. This error *does not* mean that ga-lite is broken or implemented incorrectly.
+This error happens because Google Analytics blocks requests that the Pingdom bot makes. This error _does not_ mean that ga-lite is broken or implemented incorrectly.
 
 If you want to perform a website speed test that loads ga-lite correctly, use [Webpagetest.org](http://www.webpagetest.org/).
-
 
 ## Licensing
 
 The code in this project is licensed under MIT license.
 
-[analytics-js]:https://developers.google.com/analytics/devguides/collection/analyticsjs/
-[ga-api]:https://developers.google.com/analytics/devguides/collection/protocol/v1/reference
-[issues]:https://github.com/jehna/ga-lite/issues
-[blog-post]:http://thejunkland.com/blog/fixing-last-point-on-google-pagespeed-insights.html
-[aip-flag]:https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#aip
-[anonymize-ip-address]:https://support.google.com/analytics/answer/2763052
-[ua-code-howto]:https://support.google.com/analytics/answer/1032385
-[analytics-js-support]:https://analytics.googleblog.com/2014/12/keeping-ga-web-experience-modern.html
+[analytics-js]: https://developers.google.com/analytics/devguides/collection/analyticsjs/
+[ga-api]: https://developers.google.com/analytics/devguides/collection/protocol/v1/reference
+[issues]: https://github.com/jehna/ga-lite/issues
+[blog-post]: http://thejunkland.com/blog/fixing-last-point-on-google-pagespeed-insights.html
+[aip-flag]: https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#aip
+[anonymize-ip-address]: https://support.google.com/analytics/answer/2763052
+[ua-code-howto]: https://support.google.com/analytics/answer/1032385
+[analytics-js-support]: https://analytics.googleblog.com/2014/12/keeping-ga-web-experience-modern.html

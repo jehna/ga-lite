@@ -1,11 +1,16 @@
-export default function fieldsToParams (fieldsObject) {
+export default function fieldsToParams(fieldsObject) {
   return Object.keys(fieldsObject)
-    .filter(fieldName => FIELDS_TO_PARAMS_MAP.hasOwnProperty(fieldName))
+    .filter(fieldName =>
+      Object.prototype.hasOwnProperty.call(FIELDS_TO_PARAMS_MAP, fieldName)
+    )
     .filter(fieldName => fieldsObject[fieldName])
-    .reduce((obj, fieldName) => ({
-      ...obj,
-      [FIELDS_TO_PARAMS_MAP[fieldName]]: fieldsObject[fieldName]
-    }), {})
+    .reduce(
+      (obj, fieldName) => ({
+        ...obj,
+        [FIELDS_TO_PARAMS_MAP[fieldName]]: fieldsObject[fieldName]
+      }),
+      {}
+    )
 }
 
 const FIELDS_TO_PARAMS_MAP = {

@@ -1,9 +1,8 @@
 import galite from '../../src/ga-lite'
 import Tracker, { DEFAULT_TRACKER_NAME } from '../../src/tracker'
-import MockStorage from './mock-storage'
-import { expect } from 'chai'
+import MockStorage from '../mock-storage'
 import { clearStore, getAllTrackers } from '../../src/tracker-store'
-import { assertSentTo } from './utils'
+import { assertSentTo } from '../utils'
 
 describe('galite', () => {
   beforeEach(() => {
@@ -20,30 +19,30 @@ describe('galite', () => {
   })
 
   it('should export a function', () => {
-    expect(typeof galite).to.eql('function')
+    expect(galite).toBeInstanceOf(Function)
   })
 
-  it(`should throw when there's no command available`, () => {
-    expect(() => galite('this command sholud not exist')).to.throw()
+  it("should throw when there's no command available", () => {
+    expect(() => galite('this command sholud not exist')).toThrow()
   })
 
-  it(`should not throw on "create" command`, () => {
-    expect(() => galite('create', 'UA-XXXXXX')).to.not.throw()
+  it('should not throw on "create" command', () => {
+    expect(() => galite('create', 'UA-XXXXXX')).not.toThrow()
   })
 
-  it(`should create a new tracker on "create" command`, () => {
+  it('should create a new tracker on "create" command', () => {
     galite('create', 'UA-XXXXXX')
-    expect(getAllTrackers().length).to.eql(1)
+    expect(getAllTrackers().length).toBe(1)
   })
 
   it('should expose the tracker', () => {
     const trackerName = 'myTracker'
     galite('create', 'UA-XXXXXX', 'auto', trackerName)
     const tracker = galite.getByName(trackerName)
-    expect(tracker).to.be.instanceof(Tracker)
+    expect(tracker).toBeInstanceOf(Tracker)
   })
 
-  it('should call tracker functions', (done) => {
+  it('should call tracker functions', done => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
@@ -60,14 +59,15 @@ describe('galite', () => {
         '&t=pageview' +
         '&cid=12345' +
         '&tid=UA-XXXXXX' +
-        '&z=' + timestamp,
+        '&z=' +
+        timestamp,
       done
     )
 
     galite('send', 'pageview')
   })
 
-  it('should call named tracker functions', (done) => {
+  it('should call named tracker functions', done => {
     const timestamp = Date.now()
     const trackerName = 'myTracker'
 
@@ -85,14 +85,15 @@ describe('galite', () => {
         '&t=pageview' +
         '&cid=12345' +
         '&tid=UA-XXXXXX' +
-        '&z=' + timestamp,
+        '&z=' +
+        timestamp,
       done
     )
 
     galite(`${trackerName}.send`, 'pageview')
   })
 
-  it('should call complex tracker functions', (done) => {
+  it('should call complex tracker functions', done => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
@@ -113,18 +114,19 @@ describe('galite', () => {
         '&utv=lookup' +
         '&utt=123' +
         '&utl=label' +
-        '&z=' + timestamp,
+        '&z=' +
+        timestamp,
       done
     )
 
     galite('send', 'timing', 'category', 'lookup', 123, 'label')
   })
 
-  it('should callback with default tracker when called with function', (done) => {
+  it('should callback with default tracker when called with function', done => {
     galite('create', 'UA-XXXXXX', 'auto')
     const defaultTracker = galite.getByName(DEFAULT_TRACKER_NAME)
     galite(tracker => {
-      expect(tracker).to.equal(defaultTracker)
+      expect(tracker).toBe(defaultTracker)
       done()
     })
   })
