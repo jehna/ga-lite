@@ -14,8 +14,8 @@ context('ga-lite', () => {
       const url = new URL(xhr.url)
 
       expect(url.search).to.include('v=1&ul=en-us&de=UTF-8')
-      expect(url.search).to.include(
-        '&dl=http://localhost:64947/cypress/fixtures/index.html'
+      expect(url.search).to.match(
+        /&dl=http:\/\/localhost:\d+\/cypress\/fixtures\/index.html/
       )
       expect(url.search).to.include('&dt=')
       expect(url.search).to.include('&sd=24-bit')
@@ -28,4 +28,5 @@ context('ga-lite', () => {
       expect(url.search).to.include('&z=')
     })
   })
+
 })
