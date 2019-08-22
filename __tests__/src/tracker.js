@@ -187,4 +187,16 @@ describe('Tracker', () => {
 
     tracker.send('pageview', '/hello/world.html')
   })
+
+  it('should not call _sendTo if tracker is disabled via window variable', () => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    global.window['ga-disable-' + trackingId] = true
+    const spy = jest.fn()
+    tracker._sendTo = spy
+
+    tracker.send('pageview', '/hello/world.html')
+
+    expect(spy).not.toBeCalled()
+  })
 })
