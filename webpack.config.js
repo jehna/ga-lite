@@ -1,5 +1,4 @@
 const path = require("path");
-const webpack = require("webpack");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
@@ -13,7 +12,8 @@ module.exports = {
     filename: "[name].js",
     libraryTarget: "umd",
     libraryExport: "default",
-    library: ["galite"]
+    library: ["galite"],
+    globalObject: 'this'
   },
   target: "web",
   optimization: {
