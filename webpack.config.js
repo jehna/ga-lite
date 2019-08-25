@@ -13,7 +13,8 @@ module.exports = {
     filename: "[name].js",
     libraryTarget: "umd",
     libraryExport: "default",
-    library: ["galite"]
+    library: ["galite"],
+    globalObject: 'this'
   },
   target: "web",
   optimization: {
