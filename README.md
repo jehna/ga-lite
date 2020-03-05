@@ -193,6 +193,7 @@ comparison:
 | Cacheable as long as you want                | Yes     | No (only 2 hours)                        |
 | Open Source                                  | Yes     | No                                       |
 | Can be hosted on your own server             | Yes     | No                                       |
+| Use Cookies                                  | No      | Yes                                      |
 | Gets disabled on "Do not track" browser flag | Yes     | No                                       |
 | Number of official features                  | Most    | All                                      |
 | Can be installed from NPM                    | Yes     | No                                       |
@@ -200,6 +201,10 @@ comparison:
 | Browser support                              | Modern  | [Modern and IE10+][analytics-js-support] |
 
 \* But uses Google's official, supported API
+
+### Privacy
+
+While `analytics.js` [uses Cookies by default](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#analyticsjs), `ga-lite` only requires a single entry in local storage with key `uid` to store the visitor's identification.
 
 ## Contributing
 
