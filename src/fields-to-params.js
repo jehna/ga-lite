@@ -1,16 +1,24 @@
 export default function fieldsToParams(fieldsObject) {
-  return Object.keys(fieldsObject)
-    .filter(fieldName =>
-      Object.prototype.hasOwnProperty.call(FIELDS_TO_PARAMS_MAP, fieldName)
-    )
-    .filter(fieldName => fieldsObject[fieldName])
-    .reduce(
-      (obj, fieldName) => ({
-        ...obj,
-        [FIELDS_TO_PARAMS_MAP[fieldName]]: fieldsObject[fieldName]
-      }),
-      {}
-    )
+  const params = {}
+  for (const fieldName of Object.keys(fieldsObject)) {
+    const obj = fieldsObject[fieldName]
+    if (!obj) {
+      continue
+    }
+
+    if (fieldName in FIELDS_TO_PARAMS_MAP) {
+      const paramName = FIELDS_TO_PARAMS_MAP[fieldName]
+      params[paramName] = obj
+    }
+    // handle dimension1, metric2, etc.
+    const matchedCustomValue = CUSTOM_VALUES_RE.exec(fieldName)
+    if (matchedCustomValue) {
+      const [, type, digits] = matchedCustomValue
+      const paramName = CUSTOM_VALUES_TO_PARAMS_MAP[type] + digits
+      params[paramName] = obj
+    }
+  }
+  return params
 }
 
 const FIELDS_TO_PARAMS_MAP = {
@@ -61,4 +69,11 @@ const FIELDS_TO_PARAMS_MAP = {
   exFatal: 'exf',
   expId: 'xid',
   expVar: 'xvar'
+}
+
+const CUSTOM_VALUES_RE = /(dimension|metric)(\d+)/
+
+const CUSTOM_VALUES_TO_PARAMS_MAP = {
+  dimension: 'cd',
+  metric: 'cm'
 }
