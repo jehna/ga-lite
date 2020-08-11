@@ -1,21 +1,21 @@
 export default function fieldsToParams(fieldsObject) {
   const params = {}
   for (const fieldName of Object.keys(fieldsObject)) {
-    const obj = fieldsObject[fieldName]
-    if (!obj) {
+    const paramValue = fieldsObject[fieldName]
+    if (!paramValue) {
       continue
     }
 
     if (fieldName in FIELDS_TO_PARAMS_MAP) {
       const paramName = FIELDS_TO_PARAMS_MAP[fieldName]
-      params[paramName] = obj
+      params[paramName] = paramValue
     }
     // handle dimension1, metric2, etc.
     const matchedCustomValue = CUSTOM_VALUES_RE.exec(fieldName)
     if (matchedCustomValue) {
       const [, type, digits] = matchedCustomValue
       const paramName = CUSTOM_VALUES_TO_PARAMS_MAP[type] + digits
-      params[paramName] = obj
+      params[paramName] = paramValue
     }
   }
   return params
