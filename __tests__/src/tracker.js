@@ -148,6 +148,31 @@ describe('Tracker', () => {
     tracker.send('timing', 'category', 'lookup', 123, 'label')
   })
 
+  it('should send preset custom metric and dimension arguments', done => {
+    const trackingId = 'UA-XXXXXX'
+    const tracker = new Tracker(trackingId)
+    const timestamp = Date.now()
+    tracker._getTime = () => timestamp
+
+    tracker.set('metric1', 'hello')
+    tracker.set('dimension2', 1)
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=pageview' +
+        '&cd2=1' +
+        '&cid=12345' +
+        '&cm1=hello' +
+        '&tid=UA-XXXXXX' +
+        '&dp=/hello/world.html' +
+        '&z=' +
+        timestamp,
+      done
+    )
+    tracker.send('pageview', '/hello/world.html')
+  })
+
   it('should send correct exception event with arguments', done => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
