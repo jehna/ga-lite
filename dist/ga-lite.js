@@ -199,20 +199,44 @@ function booleansToNumbers(value) {
   return typeof value === 'boolean' ? +value : value;
 }
 // CONCATENATED MODULE: ./src/fields-to-params.js
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function fieldsToParams(fieldsObject) {
-  return Object.keys(fieldsObject).filter(function (fieldName) {
-    return Object.prototype.hasOwnProperty.call(FIELDS_TO_PARAMS_MAP, fieldName);
-  }).filter(function (fieldName) {
-    return fieldsObject[fieldName];
-  }).reduce(function (obj, fieldName) {
-    return _objectSpread({}, obj, _defineProperty({}, FIELDS_TO_PARAMS_MAP[fieldName], fieldsObject[fieldName]));
-  }, {});
+  var params = {};
+
+  for (var fieldName in fieldsObject) {
+    var paramValue = fieldsObject[fieldName];
+
+    if (!paramValue) {
+      continue;
+    }
+
+    if (fieldName in FIELDS_TO_PARAMS_MAP) {
+      var paramName = FIELDS_TO_PARAMS_MAP[fieldName];
+      params[paramName] = paramValue;
+    } // handle dimension1, metric2, etc.
+
+
+    var matchedCustomValue = CUSTOM_VALUES_RE.exec(fieldName);
+
+    if (matchedCustomValue) {
+      var _matchedCustomValue = _slicedToArray(matchedCustomValue, 3),
+          type = _matchedCustomValue[1],
+          digits = _matchedCustomValue[2];
+
+      var _paramName = CUSTOM_VALUES_TO_PARAMS_MAP[type] + digits;
+
+      params[_paramName] = paramValue;
+    }
+  }
+
+  return params;
 }
 var FIELDS_TO_PARAMS_MAP = {
   anonymizeIp: 'aip',
@@ -263,6 +287,11 @@ var FIELDS_TO_PARAMS_MAP = {
   expId: 'xid',
   expVar: 'xvar'
 };
+var CUSTOM_VALUES_RE = /(dimension|metric)(\d+)/;
+var CUSTOM_VALUES_TO_PARAMS_MAP = {
+  dimension: 'cd',
+  metric: 'cm'
+};
 // CONCATENATED MODULE: ./src/build-event-url.js
 
 
@@ -279,19 +308,19 @@ function userOptedOut(trackerName) {
   return window["ga-disable-".concat(trackerName)] === true;
 }
 // CONCATENATED MODULE: ./src/tracker.js
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+function tracker_slicedToArray(arr, i) { return tracker_arrayWithHoles(arr) || tracker_iterableToArrayLimit(arr, i) || tracker_nonIterableRest(); }
 
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+function tracker_nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function tracker_iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function tracker_arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-function tracker_ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function tracker_objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { tracker_ownKeys(source, true).forEach(function (key) { tracker_defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { tracker_ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
-function tracker_defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -330,7 +359,7 @@ function () {
         fieldsObject[_key - 1] = arguments[_key];
       }
 
-      var params = tracker_objectSpread({
+      var params = _objectSpread({
         hitType: hitType
       }, argumentsToFields(hitType, fieldsObject), {}, this.fields);
 
@@ -345,9 +374,14 @@ function () {
     }
   }, {
     key: "set",
-    value: function set(fieldName, fieldValue) {
-      // TODO: Check behaviour of examples in https://developers.google.com/analytics/devguides/collection/analyticsjs/tracker-object-reference#set
-      this.fields[fieldName] = fieldValue;
+    value: function set(fieldNameOrObject, fieldValue) {
+      if (fieldNameOrObject.constructor === Object) {
+        for (var fieldName in fieldNameOrObject) {
+          this.fields[fieldName] = fieldNameOrObject[fieldName];
+        }
+      } else {
+        this.fields[fieldNameOrObject] = fieldValue;
+      }
     }
   }]);
 
@@ -362,70 +396,73 @@ function getTime() {
 
 function argumentsToFields(hitType) {
   var args = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+  var lastArgIsFieldsObject = args.length >= 1 && args[args.length - 1].constructor === Object;
+  var fieldsObject = lastArgIsFieldsObject ? args[args.length - 1] : {};
+  args = lastArgIsFieldsObject ? args.slice(0, -1) : args;
 
-  if (args.length === 1 && args[0].constructor === Object) {
-    return args[0];
-  } else {
-    switch (hitType) {
-      case 'pageview':
-        {
-          var _args = _slicedToArray(args, 1),
-              page = _args[0];
+  switch (hitType) {
+    case 'pageview':
+      {
+        var _args = args,
+            _args2 = tracker_slicedToArray(_args, 1),
+            page = _args2[0];
 
-          return {
-            page: page
-          };
-        }
+        return _objectSpread({
+          page: page
+        }, fieldsObject);
+      }
 
-      case 'event':
-        {
-          var _args2 = _slicedToArray(args, 4),
-              eventCategory = _args2[0],
-              eventAction = _args2[1],
-              eventLabel = _args2[2],
-              eventValue = _args2[3];
+    case 'event':
+      {
+        var _args3 = args,
+            _args4 = tracker_slicedToArray(_args3, 4),
+            eventCategory = _args4[0],
+            eventAction = _args4[1],
+            eventLabel = _args4[2],
+            eventValue = _args4[3];
 
-          return {
-            eventCategory: eventCategory,
-            eventAction: eventAction,
-            eventLabel: eventLabel,
-            eventValue: eventValue
-          };
-        }
+        return _objectSpread({
+          eventCategory: eventCategory,
+          eventAction: eventAction,
+          eventLabel: eventLabel,
+          eventValue: eventValue
+        }, fieldsObject);
+      }
 
-      case 'social':
-        {
-          var _args3 = _slicedToArray(args, 3),
-              socialNetwork = _args3[0],
-              socialAction = _args3[1],
-              socialTarget = _args3[2];
+    case 'social':
+      {
+        var _args5 = args,
+            _args6 = tracker_slicedToArray(_args5, 3),
+            socialNetwork = _args6[0],
+            socialAction = _args6[1],
+            socialTarget = _args6[2];
 
-          return {
-            socialNetwork: socialNetwork,
-            socialAction: socialAction,
-            socialTarget: socialTarget
-          };
-        }
+        return _objectSpread({
+          socialNetwork: socialNetwork,
+          socialAction: socialAction,
+          socialTarget: socialTarget
+        }, fieldsObject);
+      }
 
-      case 'timing':
-        {
-          var _args4 = _slicedToArray(args, 4),
-              timingCategory = _args4[0],
-              timingVar = _args4[1],
-              timingValue = _args4[2],
-              timingLabel = _args4[3];
+    case 'timing':
+      {
+        var _args7 = args,
+            _args8 = tracker_slicedToArray(_args7, 4),
+            timingCategory = _args8[0],
+            timingVar = _args8[1],
+            timingValue = _args8[2],
+            timingLabel = _args8[3];
 
-          return {
-            timingCategory: timingCategory,
-            timingVar: timingVar,
-            timingValue: timingValue,
-            timingLabel: timingLabel
-          };
-        }
+        return _objectSpread({
+          timingCategory: timingCategory,
+          timingVar: timingVar,
+          timingValue: timingValue,
+          timingLabel: timingLabel
+        }, fieldsObject);
+      }
 
-      default:
-        return {};
-    }
+    default:
+      return fieldsObject;
   }
 }
 // CONCATENATED MODULE: ./src/commands/create.js
