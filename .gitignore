@@ -3,3 +3,4 @@ dist/
 errorShots/
 .tmp
 coverage
+cypress/videos
