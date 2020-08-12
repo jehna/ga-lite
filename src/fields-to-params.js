@@ -1,6 +1,6 @@
 export default function fieldsToParams(fieldsObject) {
   const params = {}
-  for (const fieldName of Object.keys(fieldsObject)) {
+  for (const fieldName in fieldsObject) {
     const paramValue = fieldsObject[fieldName]
     if (!paramValue) {
       continue
