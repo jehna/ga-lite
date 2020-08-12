@@ -11,7 +11,9 @@ describe('fieldsToParams', () => {
       eventCategory: 'social',
       eventAction: 'like',
       eventLabel: 'Like!',
-      eventValue: 10
+      eventValue: 10,
+      metric1: 'howdy',
+      dimension22: 17
     }
 
     const output = {
@@ -19,7 +21,9 @@ describe('fieldsToParams', () => {
       ec: 'social',
       ea: 'like',
       el: 'Like!',
-      ev: 10
+      ev: 10,
+      cm1: 'howdy',
+      cd22: 17
     }
     expect(fieldsToParams(input)).toStrictEqual(output)
   })
