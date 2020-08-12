@@ -130,4 +130,94 @@ describe('galite', () => {
       done()
     })
   })
+
+  it('should send custom metrics as part of the pageview hit', done => {
+    const timestamp = Date.now()
+
+    const localStorage = new MockStorage()
+    localStorage.setItem('uid', '12345')
+    global.window.localStorage = localStorage
+
+    galite('create', 'UA-XXXXXX', 'auto')
+    const tracker = galite.getByName(DEFAULT_TRACKER_NAME)
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&cd15=My+Custom+Dimension' +
+        '&t=pageview' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&z=' +
+        timestamp,
+      done
+    )
+
+    galite('send', 'pageview', {
+      dimension15: 'My Custom Dimension'
+    })
+  })
+
+  it('should send custom metrics as part of event', done => {
+    const timestamp = Date.now()
+
+    const localStorage = new MockStorage()
+    localStorage.setItem('uid', '12345')
+    global.window.localStorage = localStorage
+
+    galite('create', 'UA-XXXXXX', 'auto')
+    const tracker = galite.getByName(DEFAULT_TRACKER_NAME)
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=event' +
+        '&ea=action' +
+        '&ec=category' +
+        '&cm18=8000' +
+        '&cid=12345' +
+        '&tid=UA-XXXXXX' +
+        '&z=' +
+        timestamp,
+      done
+    )
+
+    galite('send', 'event', 'category', 'action', {
+      metric18: 8000
+    })
+  })
+
+  it('should send custom metrics as part of event', done => {
+    const timestamp = Date.now()
+
+    const localStorage = new MockStorage()
+    localStorage.setItem('uid', '12345')
+    global.window.localStorage = localStorage
+
+    galite('create', 'UA-XXXXXX', 'auto')
+    const tracker = galite.getByName(DEFAULT_TRACKER_NAME)
+    tracker._getTime = () => timestamp
+
+    tracker._sendTo = assertSentTo(
+      'https://www.google-analytics.com/collect' +
+        '?v=1&ul=en-us&de=UTF-8' +
+        '&t=pageview' +
+        '&cm5=5005' +
+        '&cid=12345' +
+        '&cd5=custom+dimension+data' +
+        '&tid=UA-XXXXXX' +
+        '&z=' +
+        timestamp,
+      done
+    )
+
+    galite('set', {
+      dimension5: 'custom dimension data',
+      metric5: 5005
+    })
+
+    galite('send', 'pageview')
+  })
 })

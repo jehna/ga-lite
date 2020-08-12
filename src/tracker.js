@@ -38,9 +38,14 @@ export default class Tracker {
     return this.fields[fieldName]
   }
 
-  set(fieldName, fieldValue) {
-    // TODO: Check behaviour of examples in https://developers.google.com/analytics/devguides/collection/analyticsjs/tracker-object-reference#set
-    this.fields[fieldName] = fieldValue
+  set(fieldNameOrObject, fieldValue) {
+    if (fieldNameOrObject.constructor === Object) {
+      for (const fieldName in fieldNameOrObject) {
+        this.fields[fieldName] = fieldNameOrObject[fieldName]
+      }
+    } else {
+      this.fields[fieldNameOrObject] = fieldValue
+    }
   }
 }
 
@@ -49,28 +54,41 @@ function getTime() {
 }
 
 function argumentsToFields(hitType, args = []) {
-  if (args.length === 1 && args[0].constructor === Object) {
-    return args[0]
-  } else {
-    switch (hitType) {
-      case 'pageview': {
-        const [page] = args
-        return { page }
-      }
-      case 'event': {
-        const [eventCategory, eventAction, eventLabel, eventValue] = args
-        return { eventCategory, eventAction, eventLabel, eventValue }
-      }
-      case 'social': {
-        const [socialNetwork, socialAction, socialTarget] = args
-        return { socialNetwork, socialAction, socialTarget }
-      }
-      case 'timing': {
-        const [timingCategory, timingVar, timingValue, timingLabel] = args
-        return { timingCategory, timingVar, timingValue, timingLabel }
-      }
-      default:
-        return {}
+  const lastArgIsFieldsObject =
+    args.length >= 1 && args[args.length - 1].constructor === Object
+  const fieldsObject = lastArgIsFieldsObject ? args[args.length - 1] : {}
+  args = lastArgIsFieldsObject ? args.slice(0, -1) : args
+
+  switch (hitType) {
+    case 'pageview': {
+      const [page] = args
+      return { page, ...fieldsObject }
     }
+    case 'event': {
+      const [eventCategory, eventAction, eventLabel, eventValue] = args
+      return {
+        eventCategory,
+        eventAction,
+        eventLabel,
+        eventValue,
+        ...fieldsObject
+      }
+    }
+    case 'social': {
+      const [socialNetwork, socialAction, socialTarget] = args
+      return { socialNetwork, socialAction, socialTarget, ...fieldsObject }
+    }
+    case 'timing': {
+      const [timingCategory, timingVar, timingValue, timingLabel] = args
+      return {
+        timingCategory,
+        timingVar,
+        timingValue,
+        timingLabel,
+        ...fieldsObject
+      }
+    }
+    default:
+      return fieldsObject
   }
 }
