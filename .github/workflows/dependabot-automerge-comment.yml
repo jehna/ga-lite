@@ -1,0 +1,19 @@
+name: 'Dependabot Auto squash and mmerge comment action'
+
+on: pull_request
+
+jobs:
+  auto-comment-allow-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        if: github.actor == 'dependabot[bot]'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              issue_number: context.payload.pull_request.number,
+              body: '@dependabot squash and merge'
+            })
