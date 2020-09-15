@@ -1,0 +1,21 @@
+name: 'Dependabot Auto squash and merge action'
+
+on:
+  check_suite:
+    types: [completed]
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        if: github.actor == 'dependabot[bot]' && github.event.check_suite && github.event.check_suite.conclusion == 'success'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.pulls.createComment({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number,
+              merge_method: 'squash'
+            })
