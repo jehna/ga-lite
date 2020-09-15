@@ -1,9 +1,9 @@
-name: 'Dependabot Auto squash and mmerge comment action'
+name: 'Dependabot Auto squash and merge action'
 
 on: pull_request
 
 jobs:
-  auto-comment-allow-merge:
+  auto-merge:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/github-script@v3
@@ -11,9 +11,9 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.issues.createComment({
+            github.pulls.merge({
               owner: context.payload.repository.owner.login,
               repo: context.payload.repository.name,
-              issue_number: context.payload.pull_request.number,
-              body: '@dependabot squash and merge'
+              pull_number: context.payload.pull_request.number,
+              merge_method: 'squash'
             })
