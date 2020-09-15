@@ -1,0 +1,19 @@
+name: 'Dependabot Auto squash and merge action'
+
+on: pull_request
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        if: github.actor == 'dependabot[bot]'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.pulls.merge({
+              owner: context.payload.repository.owner.login,
+              repo: context.payload.repository.name,
+              pull_number: context.payload.pull_request.number,
+              merge_method: 'squash'
+            })
