@@ -26,7 +26,7 @@ describe('Tracker', () => {
     )
   })
 
-  it('should send correct URL on "send" method', done => {
+  it('should send correct URL on "send" method', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -60,7 +60,7 @@ describe('Tracker', () => {
     expect(tracker.get('randomValue')).toBe(randomValue)
   })
 
-  it('should send correct pageview event with arguments', done => {
+  it('should send correct pageview event with arguments', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -80,7 +80,7 @@ describe('Tracker', () => {
     tracker.send('pageview', '/hello/world.html')
   })
 
-  it('should send correct "event" event with arguments', done => {
+  it('should send correct "event" event with arguments', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -103,7 +103,7 @@ describe('Tracker', () => {
     tracker.send('event', 'link', 'click', 'http://example.com', 55)
   })
 
-  it('should send correct social event with arguments', done => {
+  it('should send correct social event with arguments', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -125,7 +125,7 @@ describe('Tracker', () => {
     tracker.send('social', 'facebook', 'like', 'http://foo.com')
   })
 
-  it('should send correct timing event with arguments', done => {
+  it('should send correct timing event with arguments', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -148,7 +148,7 @@ describe('Tracker', () => {
     tracker.send('timing', 'category', 'lookup', 123, 'label')
   })
 
-  it('should send preset custom metric and dimension arguments', done => {
+  it('should send preset custom metric and dimension arguments', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -173,7 +173,7 @@ describe('Tracker', () => {
     tracker.send('pageview', '/hello/world.html')
   })
 
-  it('should send correct exception event with arguments', done => {
+  it('should send correct exception event with arguments', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const timestamp = Date.now()
@@ -197,11 +197,11 @@ describe('Tracker', () => {
     })
   })
 
-  it('should set correct timestamp', done => {
+  it('should set correct timestamp', (done) => {
     const trackingId = 'UA-XXXXXX'
     const tracker = new Tracker(trackingId)
     const start = Date.now()
-    tracker._sendTo = url => {
+    tracker._sendTo = (url) => {
       const trackerTime = parseInt(url.match(/z=(\d+)/)[1])
       const end = Date.now()
 

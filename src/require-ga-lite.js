@@ -2,7 +2,7 @@
  * If you change this file, make sure to run `npm run require-script` and
  * copy-paste the output to README.md and index.html
  */
-;(function(
+;(function (
   window,
   document,
   galiteName,
@@ -13,7 +13,7 @@
 ) {
   window[galiteName] =
     window[galiteName] ||
-    function() {
+    function () {
       ;(window[galiteName].q = window[galiteName].q || []).push(arguments)
     }
   scriptTag = document.createElement(scriptString)

@@ -42,7 +42,7 @@ describe('galite', () => {
     expect(tracker).toBeInstanceOf(Tracker)
   })
 
-  it('should call tracker functions', done => {
+  it('should call tracker functions', (done) => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
@@ -67,7 +67,7 @@ describe('galite', () => {
     galite('send', 'pageview')
   })
 
-  it('should call named tracker functions', done => {
+  it('should call named tracker functions', (done) => {
     const timestamp = Date.now()
     const trackerName = 'myTracker'
 
@@ -93,7 +93,7 @@ describe('galite', () => {
     galite(`${trackerName}.send`, 'pageview')
   })
 
-  it('should call complex tracker functions', done => {
+  it('should call complex tracker functions', (done) => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
@@ -122,16 +122,16 @@ describe('galite', () => {
     galite('send', 'timing', 'category', 'lookup', 123, 'label')
   })
 
-  it('should callback with default tracker when called with function', done => {
+  it('should callback with default tracker when called with function', (done) => {
     galite('create', 'UA-XXXXXX', 'auto')
     const defaultTracker = galite.getByName(DEFAULT_TRACKER_NAME)
-    galite(tracker => {
+    galite((tracker) => {
       expect(tracker).toBe(defaultTracker)
       done()
     })
   })
 
-  it('should send custom metrics as part of the pageview hit', done => {
+  it('should send custom metrics as part of the pageview hit', (done) => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
@@ -159,7 +159,7 @@ describe('galite', () => {
     })
   })
 
-  it('should send custom metrics as part of event', done => {
+  it('should send custom metrics as part of event', (done) => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
@@ -189,7 +189,7 @@ describe('galite', () => {
     })
   })
 
-  it('should send custom metrics as part of event', done => {
+  it('should send custom metrics as part of event', (done) => {
     const timestamp = Date.now()
 
     const localStorage = new MockStorage()
