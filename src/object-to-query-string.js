@@ -1,6 +1,6 @@
 export default function objectToQueryString(object = {}) {
   return Object.keys(object)
-    .map(key =>
+    .map((key) =>
       [key, object[key]]
         .map(booleansToNumbers)
         .map(encodeURIComponent)

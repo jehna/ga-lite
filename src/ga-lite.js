@@ -39,8 +39,8 @@ function splitTrackerCommand(command) {
   }
 }
 
-Object.keys(galiteCommands).forEach(key => {
+Object.keys(galiteCommands).forEach((key) => {
   galite[key] = galiteCommands[key]
 })
 
-getTasksInCommandQueue().forEach(args => galite(...args))
+getTasksInCommandQueue().forEach((args) => galite(...args))

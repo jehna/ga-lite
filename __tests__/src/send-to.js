@@ -3,8 +3,8 @@ import sendTo from '../../src/send-to'
 describe('sendTo', () => {
   beforeEach(() => {
     global.navigator.sendBeacon = jest.fn(() => true)
-    global.window.XMLHttpRequest = function() {}
-    global.window.Image = function() {}
+    global.window.XMLHttpRequest = function () {}
+    global.window.Image = function () {}
     global.window.XMLHttpRequest.prototype = {
       open: jest.fn(),
       send: jest.fn()
@@ -43,10 +43,10 @@ describe('sendTo', () => {
     delete global.navigator.sendBeacon
     let setSrc = null
 
-    global.window.XMLHttpRequest = function() {
+    global.window.XMLHttpRequest = function () {
       throw new Error('IE9 throws error')
     }
-    global.window.Image = function() {
+    global.window.Image = function () {
       return {
         set src(url) {
           setSrc = url

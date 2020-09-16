@@ -13,7 +13,7 @@ export function removeTracker(trackerName) {
 }
 
 export function getAllTrackers() {
-  return Object.keys(store).map(key => store[key])
+  return Object.keys(store).map((key) => store[key])
 }
 
 export function clearStore() {

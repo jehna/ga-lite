@@ -3,7 +3,7 @@ describe('ga-lite require script', () => {
 
   beforeEach(() => {
     global.window = {}
-    global.document.createElement = elementType => ({ elementType })
+    global.document.createElement = (elementType) => ({ elementType })
     global.document.getElementsByTagName = () => [
       { parentNode: { insertBefore: () => {} } }
     ]
