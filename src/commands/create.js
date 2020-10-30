@@ -5,7 +5,7 @@ export default function create(
   trackingId,
   cookieDomain,
   name = DEFAULT_TRACKER_NAME,
-  fieldsObject
+  fieldsObject = undefined
 ) {
   const tracker = new Tracker(trackingId)
   addTracker(name, tracker)
