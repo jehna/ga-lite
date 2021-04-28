@@ -1,0 +1,24 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "03:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: webpack
+    versions:
+    - 5.35.0
+  - dependency-name: cypress
+    versions:
+    - 6.7.0
+    - 6.7.1
+    - 7.0.0
+    - 7.0.1
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.0
+  - dependency-name: eslint-plugin-promise
+    versions:
+    - 4.3.0
