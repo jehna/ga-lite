@@ -28,7 +28,7 @@
   "devDependencies": {
     "@babel/core": "^7.11.6",
     "@babel/preset-env": "^7.11.5",
-    "babel-jest": "^26.3.0",
+    "babel-jest": "^27.0.0",
     "babel-loader": "^8.1.0",
     "coveralls": "^3.1.0",
     "cypress": "^7.1.0",
