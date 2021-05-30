@@ -3,22 +3,20 @@ describe('ga-lite require script', () => {
 
   beforeEach(() => {
     global.window = {}
-    global.document.createElement = (elementType) => ({ elementType })
-    global.document.getElementsByTagName = () => [
-      { parentNode: { insertBefore: () => {} } }
-    ]
+    global.document = {
+      createElement: (elementType) => ({ elementType }),
+      getElementsByTagName: () => [{ parentNode: { insertBefore: () => {} } }]
+    }
   })
 
   afterEach(() => {
-    delete global.windowx
-    delete global.document.createElement
-    delete global.document.getElementsByTagName
-    delete require.cache[require.resolve('../../src/require-ga-lite')]
+    delete global.window
+    delete global.document
+    jest.resetModules()
   })
 
   it('should create galite function under window', () => {
     requireGaLite()
-
     expect(global.window.galite).toBeInstanceOf(Function)
   })
 
