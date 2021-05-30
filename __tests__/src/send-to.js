@@ -2,9 +2,13 @@ import sendTo from '../../src/send-to'
 
 describe('sendTo', () => {
   beforeEach(() => {
-    global.navigator.sendBeacon = jest.fn(() => true)
-    global.window.XMLHttpRequest = function () {}
-    global.window.Image = function () {}
+    global.navigator = {
+      sendBeacon: jest.fn(() => true)
+    }
+    global.window = {
+      XMLHttpRequest: function () {},
+      Image: function () {}
+    }
     global.window.XMLHttpRequest.prototype = {
       open: jest.fn(),
       send: jest.fn()
@@ -12,9 +16,8 @@ describe('sendTo', () => {
   })
 
   afterEach(() => {
-    delete global.navigator.sendBeacon
-    delete global.window.XMLHttpRequest
-    delete global.window.Image
+    delete global.navigator
+    delete global.window
   })
 
   it('should try to call navigator.sendBeacon first', () => {
