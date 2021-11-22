@@ -215,7 +215,7 @@ While `analytics.js` [uses Cookies by default](https://developers.google.com/ana
 ## Contributing
 
 If you'd like to request a feature, or if you find any official `analytics.js`
-pubic feature missing, please [open an issue][issues].
+public feature missing, please [open an issue][issues].
 
 If you'd like to contribute, please fork the repository and use a feature
 branch. Pull requests are warmly welcome.
