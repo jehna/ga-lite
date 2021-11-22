@@ -1,7 +1,7 @@
 name: Test
 on: pull_request
 jobs:
-  lint:
+  test:
     name: Run tests
     runs-on: ubuntu-latest
     steps:

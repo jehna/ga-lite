@@ -4,8 +4,8 @@ on:
     tags:
       - "*"
 jobs:
-  lint:
-    name: Run tests
+  test:
+    name: Run tests and deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
