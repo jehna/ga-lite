@@ -1,6 +1,5 @@
 ![Build status](https://travis-ci.org/jehna/ga-lite.svg?branch=master)
 [![JSDelivr](https://data.jsdelivr.com/v1/package/npm/ga-lite/badge)](https://www.jsdelivr.com/package/npm/ga-lite)
-[![Coverage Status](https://coveralls.io/repos/github/jehna/ga-lite/badge.svg?branch=coveralls)](https://coveralls.io/github/jehna/ga-lite?branch=coveralls)
 
 # ga-lite
 
@@ -187,7 +186,7 @@ How does this script differ from the official `analytics.js` script? Here's a
 comparison:
 
 | Feature                                      | ga-lite | analytics.js                             |
-| -------------------------------------------- | ------- | ---------------------------------------- |
+|----------------------------------------------|---------|------------------------------------------|
 | Supported by Google                          | No \*   | Yes                                      |
 | Size                                         | ~ 8 kB  | ~ 30 kB                                  |
 | Cacheable as long as you want                | Yes     | No (only 2 hours)                        |
