@@ -202,6 +202,12 @@ comparison:
 
 \* But uses Google's official, supported API
 
+### Need something even simpler?
+
+Check out [analytics.js gist by MESA Avukatlık
+Ofisi](https://gist.github.com/mesaavukatlik/9280e6d665b5762ea187b5451c3db538)
+for even smaller subset of the official `analytics.js` script.
+
 ### Privacy
 
 While `analytics.js` [uses Cookies by default](https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage#analyticsjs), `ga-lite` only requires a single entry in local storage with key `uid` to store the visitor's identification.
