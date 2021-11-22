@@ -1,8 +1,12 @@
 export default function sendTo(url) {
   if (typeof navigator !== 'undefined' && navigator.sendBeacon) {
-    const didSucceed = navigator.sendBeacon(url)
-    if (didSucceed) {
-      return
+    try {
+      const didSucceed = navigator.sendBeacon(url)
+      if (didSucceed) {
+        return
+      }
+    } catch (e) {
+      // ignore
     }
   }
 
