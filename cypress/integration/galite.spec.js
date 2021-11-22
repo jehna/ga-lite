@@ -7,7 +7,7 @@ context('ga-lite', () => {
   it('should respond correctly to pageview event', () => {
     let sr = ''
     cy.server()
-    cy.route(/www.google-analytics.com\/collect/, '').as('gaCollect')
+    cy.route(/www\.google-analytics.com\/collect/, '').as('gaCollect')
     cy.window().then((win) => {
       cy.stub(win.navigator, 'sendBeacon')
       win.localStorage.setItem('uid', '11223344')
@@ -39,7 +39,7 @@ context('ga-lite', () => {
 
   it('should not call endpoint if tracker has been disabled', () => {
     cy.server()
-    cy.route(/www.google-analytics.com\/collect/, '').as('gaCollect')
+    cy.route(/www\.google-analytics.com\/collect/, '').as('gaCollect')
     cy.window().then((win) => {
       cy.stub(win.navigator, 'sendBeacon')
       win['ga-disable-UA-666'] = true
