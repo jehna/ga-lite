@@ -1,5 +1,5 @@
 *
 !README.md
 !LICENSE
-!dist/*
-!src/*
+!dist/**
+!src/**
