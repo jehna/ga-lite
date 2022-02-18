@@ -293,7 +293,7 @@ following script to your page (after loading ga-lite):
 </script>
 ```
 
-Note that `'pagehide'` is [preferred](https://developers.google.com/web/updates/2018/07/page-lifecycle-api?utm_source=lighthouse&utm_medium=devtools#the-unload-event) for modern browsers.
+Note that `'pagehide'` is [preferred](https://developers.google.com/web/updates/2018/07/page-lifecycle-api#the-unload-event) for modern browsers.
 
 ## FAQ
 
