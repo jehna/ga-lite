@@ -27,4 +27,24 @@ describe('fieldsToParams', () => {
     }
     expect(fieldsToParams(input)).toStrictEqual(output)
   })
+
+  it('should pass 0 as it is, but omit empty string, null and undefined values', () => {
+    const input = {
+      hitType: 'event',
+      eventCategory: 'social',
+      eventAction: 'like',
+      eventLabel: null,
+      eventValue: 0,
+      metric1: '',
+      dimension22: undefined
+    }
+
+    const output = {
+      t: 'event',
+      ec: 'social',
+      ev: 0,
+      ea: 'like'
+    }
+    expect(fieldsToParams(input)).toStrictEqual(output)
+  })
 })
