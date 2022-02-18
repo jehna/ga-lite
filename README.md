@@ -286,11 +286,14 @@ following script to your page (after loading ga-lite):
 
 ```html
 <script>
-  window.addEventListener('unload', function() {
+  var terminationEvent = 'onpagehide' in window ? 'pagehide' : 'unload';
+  window.addEventListener(terminationEvent, function() {
     galite('send', 'timing', 'JS Dependencies', 'unload')
   })
 </script>
 ```
+
+Note that `'pagehide'` is [preferred](https://developers.google.com/web/updates/2018/07/page-lifecycle-api?utm_source=lighthouse&utm_medium=devtools#the-unload-event) for modern browsers.
 
 ## FAQ
 
