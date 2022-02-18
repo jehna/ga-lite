@@ -2,7 +2,7 @@ export default function fieldsToParams(fieldsObject) {
   const params = {}
   for (const fieldName in fieldsObject) {
     const paramValue = fieldsObject[fieldName]
-    if (!paramValue) {
+    if (paramValue == null || paramValue === '') {
       continue
     }
 
