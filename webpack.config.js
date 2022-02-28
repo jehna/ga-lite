@@ -1,28 +1,22 @@
 const path = require("path");
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
-module.exports = {
-  entry: {
-    "ga-lite": "./src/ga-lite",
-    "ga-lite.min": "./src/ga-lite"
-  },
+const output = {
+  path: path.resolve(__dirname, "dist"),
+  filename: "[name].js"
+};
+
+const umd = {
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "[name].js",
-    libraryTarget: "umd",
-    libraryExport: "default",
-    library: ["galite"],
+    ...output,
+    library: {
+      type: "umd",
+      export: "default",
+      name: "galite"
+    },
     globalObject: 'this'
   },
   target: "web",
-  optimization: {
-    minimizer: [
-      new UglifyJsPlugin({
-        include: /\.min\.js$/
-      })
-    ]
-  },
   module: {
     rules: [
       {
@@ -35,3 +29,35 @@ module.exports = {
     ]
   }
 };
+
+module.exports = [{
+  entry: {
+    "ga-lite": "./src/ga-lite"
+  },
+  optimization: {
+    minimize: false
+  },
+  ...umd
+}, {
+  entry: {
+    "ga-lite.min": "./src/ga-lite"
+  },
+  ...umd
+}, {
+  entry: {
+    "ga-lite.esm": "./src/ga-lite"
+  },
+  mode: "production",
+  output: {
+    ...output,
+    library: {
+      type: "module"
+    }
+  },
+  optimization: {
+    minimize: false
+  },
+  experiments: {
+    outputModule: true
+  }
+}];
