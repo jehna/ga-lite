@@ -4,6 +4,7 @@
   "description": "Small, cacheable subset of Google Analytics JS client",
   "jsdelivr": "dist/ga-lite.min.js",
   "main": "dist/ga-lite.min.js",
+  "module": "dist/ga-lite.esm.js",
   "scripts": {
     "test:browser": "cypress run",
     "test:unit": "jest ./__tests__/src/*.js",
@@ -40,7 +41,6 @@
     "jest": "^27.0.3",
     "prettier": "^2.1.2",
     "uglify-js": "^3.10.4",
-    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.28.0",
     "webpack-cli": "^4.0.0"
   }
