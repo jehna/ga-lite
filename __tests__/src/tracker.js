@@ -8,7 +8,7 @@ describe('Tracker', () => {
 
   beforeEach(() => {
     global.window = { screen: {}, localStorage }
-    global.navigator = {}
+    global.navigator = { language: 'en-us' }
     global.document = { location: {} }
   })
 
