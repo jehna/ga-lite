@@ -12,11 +12,13 @@ describe('buildEventUrl', () => {
   beforeEach(() => {
     global.window = { screen: {}, localStorage: { uid: '12345' } }
     global.document = { location: {} }
+    global.navigator = { language: 'en-US' }
   })
 
   afterEach(() => {
     delete global.window
     delete global.document
+    delete global.navigator
   })
 
   it('should export a function', () => {

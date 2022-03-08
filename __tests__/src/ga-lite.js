@@ -7,7 +7,7 @@ import { assertSentTo } from '../utils'
 describe('galite', () => {
   beforeEach(() => {
     global.window = { screen: {} }
-    global.navigator = {}
+    global.navigator = { language: 'en-us' }
     global.document = { location: {} }
   })
 

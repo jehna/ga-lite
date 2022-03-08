@@ -21,7 +21,7 @@ context('ga-lite', () => {
     cy.get('@gaCollect').should((xhr) => {
       const url = new URL(xhr.url)
 
-      expect(url.search).to.include('v=1&ul=en-us&de=UTF-8')
+      expect(url.search).to.include('v=1&de=UTF-8&ul=en-us')
       expect(url.search).to.match(
         /&dl=http:\/\/localhost:\d+\/cypress\/fixtures\/index.html/
       )
