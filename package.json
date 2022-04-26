@@ -39,7 +39,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-standard": "^5.0.0",
-    "jest": "^27.0.3",
+    "jest": "^28.0.0",
     "prettier": "^2.1.2",
     "uglify-js": "^3.10.4",
     "webpack": "^5.28.0",
