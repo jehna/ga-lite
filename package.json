@@ -5,7 +5,6 @@
   "jsdelivr": "dist/ga-lite.min.js",
   "main": "dist/ga-lite.min.js",
   "module": "dist/ga-lite.esm.js",
-  "type": "commonjs",
   "scripts": {
     "test:browser": "cypress run",
     "test:unit": "jest ./__tests__/src/*.js",
